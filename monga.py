@@ -6,7 +6,7 @@ import unicodecsv as csv
 from operator import itemgetter
 import sheets
 import newSheets
-from datetime import timedelta, date
+from datetime import datetime, timedelta, date
 import plotGraph
 
 def _connect_mongo(host, port, username, password, db):
@@ -201,17 +201,26 @@ def main():
 
 
 def ls_summary():
-    start_date = date(2016, 7, 11)
+    start_date = date(2016, 6, 1)
     end_date = date(2016, 7, 14)
-    budget = newSheets.main()
+    budget, lastYear = newSheets.main()
+    print "ly:"
+    print lastYear
+    print "budget:"
+    print budget
     budgetPlot = {}
     for single_date in daterange(start_date, end_date):
+        lyDate = (single_date - timedelta(days=365))
         mainList = mongo_call(single_date.strftime("%Y-%m-%d"), single_date.strftime("%Y-%m-%d"))
         budget[single_date.strftime("%d/%m/%Y")].append(str(mainList[2]))
+        budget[single_date.strftime("%d/%m/%Y")].append(str(lastYear[lyDate.strftime("%d/%m/%Y")][1]))
         budgetPlot[single_date.strftime("%d/%m/%Y")] = budget[single_date.strftime("%d/%m/%Y")]
+        print budget[single_date.strftime("%d/%m/%Y")]
     plotGraph.trace_graph(budgetPlot)
 
 #gian comment
+
+ls_summary()
 
 
 

@@ -19,7 +19,7 @@ def trace_graph(value):
         print str(k)
         s = datetime.datetime.strptime(str(k), "%d/%m/%Y")
         xValues.append(s.strftime("%Y-%m-%d"))
-        trace1Values.append(value[k][0])
+        trace1Values.append(value[k][3])
         trace2Values.append(value[k][1])
         trace3Values.append(value[k][2])
 
@@ -27,7 +27,7 @@ def trace_graph(value):
     trace1 = go.Bar(
         x=xValues,
         y=trace1Values,
-        name='Lifestyle Budget'
+        name='Last Year'
     )
     trace2 = go.Bar(
         x=xValues,

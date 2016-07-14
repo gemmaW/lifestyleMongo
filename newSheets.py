@@ -72,17 +72,38 @@ def main():
 
     budget = {}
 
+
     if not values:
         print('No data found.')
     else:
         print('Name, Major:')
         for row in values:
             # Print columns A and E, which correspond to indices 0 and 4.
-            print('%s, %s, %s' % (row[2], str(float(row[18][1:].replace(',', ''))+float(row[19][1:].replace(',', ''))+float(row[20][1:].replace(',', ''))+float(row[21][1:].replace(',', ''))+float(row[22][1:].replace(',', ''))), str(float(row[18][1:].replace(',', '')))))
+            #print('%s, %s, %s' % (row[2], str(float(row[18][1:].replace(',', ''))+float(row[19][1:].replace(',', ''))+float(row[20][1:].replace(',', ''))+float(row[21][1:].replace(',', ''))+float(row[22][1:].replace(',', ''))), str(float(row[18][1:].replace(',', '')))))
             budget[row[2]] = [str(float(row[18][1:].replace(',', ''))+float(row[19][1:].replace(',', ''))+float(row[20][1:].replace(',', ''))+float(row[21][1:].replace(',', ''))+float(row[22][1:].replace(',', ''))), str(float(row[18][1:].replace(',', '')))]
 
+
+    # do the same for last year figures from same google sheets (sheet2)
+
+    rangeName = 'Sheet2!A4:W368'
+    result = service.spreadsheets().values().get(
+        spreadsheetId=spreadsheetId, range=rangeName).execute()
+    values = result.get('values', [])
+
+    lastYear = {}
+
+    if not values:
+        print('No data found.')
+    else:
+        print('Name, Major:')
+        for row in values:
+            # Print columns A and E, which correspond to indices 0 and 4.
+            #print('%s, %s, %s' % (row[2], str(float(row[18][1:].replace(',', ''))+float(row[19][1:].replace(',', ''))+float(row[20][1:].replace(',', ''))+float(row[21][1:].replace(',', ''))+float(row[22][1:].replace(',', ''))), str(float(row[18][1:].replace(',', '')))))
+            lastYear[row[2]] = [str(float(row[18][1:].replace(',', ''))+float(row[19][1:].replace(',', ''))+float(row[20][1:].replace(',', ''))+float(row[21][1:].replace(',', ''))+float(row[22][1:].replace(',', ''))), str(float(row[13][1:].replace(',', '')))]
+
+
     #print(budget)
-    return budget
+    return budget, lastYear
 
 if __name__ == '__main__':
     main()
