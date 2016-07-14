@@ -211,7 +211,7 @@ def ls_summary():
         budgetPlot[single_date.strftime("%d/%m/%Y")] = budget[single_date.strftime("%d/%m/%Y")]
     plotGraph.trace_graph(budgetPlot)
 
-
+#gian comment
 
 
 
