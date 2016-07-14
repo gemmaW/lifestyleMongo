@@ -21,7 +21,7 @@ def _connect_mongo(host, port, username, password, db):
 
     return conn[db]
 
-
+#gemma change
 def read_mongo(my_start_str, my_end_str, db, collection, query, host, port, username, password, no_id):
     """ Read from Mongo and Store into DataFrame """
 
