@@ -26,22 +26,31 @@ def trace_graph(value):
 
     trace1 = go.Bar(
         x=xValues,
-        y=trace1Values,
-        name='Last Year'
+        y=trace2Values,
+        name='Theatre Budget',
+        marker=dict(
+            color='rgba(249,102,214, 1.0)',
+        )
     )
     trace2 = go.Bar(
         x=xValues,
-        y=trace2Values,
-        name='Theatre Budget'
+        y=trace1Values,
+        name='Last Year',
+        marker=dict(
+            color='rgba(165,142,252, 0.8)',
+        )
     )
     trace3 = go.Bar(
         x=xValues,
         y=trace3Values,
-        name='Theatre Actual'
+        name='Theatre Actual',
+        marker=dict(
+            color='rgba(31,183,233, 0.6)',
+        )
     )
     data = [trace1, trace2, trace3]
     layout = go.Layout(
-        barmode='bar'
+        barmode='overlay'
     )
 
     fig = go.Figure(data=data, layout=layout)

@@ -201,7 +201,7 @@ def main():
 
 
 def ls_summary():
-    start_date = date(2016, 6, 1)
+    start_date = date(2016, 7, 7)
     end_date = date(2016, 7, 14)
     budget, lastYear = newSheets.main()
     print "ly:"
