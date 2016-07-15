@@ -21,7 +21,7 @@ def _connect_mongo(host, port, username, password, db):
 
     return conn[db]
 
-#gemma change
+
 def read_mongo(my_start_str, my_end_str, db, collection, query, host, port, username, password, no_id):
     """ Read from Mongo and Store into DataFrame """
 
@@ -152,7 +152,7 @@ def mongo_call(startDate, endDate):
 def create_docs(mylist, filename, total_gtv, total_transactions, total_tickets, meal_deals, total_commission, total_bookingFee, vat, showsDict):
     myfile = open(filename, 'wb')
     wr = csv.writer(myfile, quoting=csv.QUOTE_ALL)
-    print mylist
+    print(mylist)
     mylist.insert(0, [''])
     mylist.insert(0, ['# ----------------------------------------'])
     mylist.insert(0, ['# No. of Meal Deals: '+str(meal_deals)])
@@ -204,10 +204,10 @@ def ls_summary():
     start_date = date(2016, 7, 7)
     end_date = date(2016, 7, 14)
     budget, lastYear = newSheets.main()
-    print "ly:"
-    print lastYear
-    print "budget:"
-    print budget
+    print("ly:")
+    print(lastYear)
+    print("budget:")
+    print(budget)
     budgetPlot = {}
     for single_date in daterange(start_date, end_date):
         lyDate = (single_date - timedelta(days=365))
@@ -215,10 +215,9 @@ def ls_summary():
         budget[single_date.strftime("%d/%m/%Y")].append(str(mainList[2]))
         budget[single_date.strftime("%d/%m/%Y")].append(str(lastYear[lyDate.strftime("%d/%m/%Y")][1]))
         budgetPlot[single_date.strftime("%d/%m/%Y")] = budget[single_date.strftime("%d/%m/%Y")]
-        print budget[single_date.strftime("%d/%m/%Y")]
+        print(budget[single_date.strftime("%d/%m/%Y")])
     plotGraph.trace_graph(budgetPlot)
 
-#gian comment
 
 ls_summary()
 
