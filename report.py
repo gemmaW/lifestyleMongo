@@ -41,7 +41,10 @@ def ls_summary():
 
 
 def input_show_report():
-    year1 = str(input('Enter a year: '))
+    year1 = str(input('Enter a year (' + str(date.today().year) + '): '))
+    print(year1)
+    if year1 is False:
+        year1 = date.today().year
     month1 = str(input('Enter a month: '))
     day1 = str(input('Enter a day: '))
     startDate = datetime.strptime(year1 + "-" + month1 + "-" + day1, "%Y-%m-%d")
@@ -52,8 +55,8 @@ def input_show_report():
     mainList = monga.mongo_call(year1 + "-" + month1 + "-" + day1, year2 + "-" + month2 + "-" + day2)
     monga.create_docs(mainList[0], mainList[1], mainList[2], mainList[3], mainList[4], mainList[5], mainList[6], mainList[7], mainList[8], mainList[9], mainList[10], mainList[11])
 
-ls_summary()
-#input_show_report()
+# ls_summary()
+input_show_report()
 
 # def get_date_input():
 #     year = int(input('Enter a year'))
