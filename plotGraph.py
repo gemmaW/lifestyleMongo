@@ -16,7 +16,7 @@ def trace_graph(value):
     trace3Values = []
 
     for k in value:
-        print str(k)
+        # print(str(k))
         s = datetime.datetime.strptime(str(k), "%d/%m/%Y")
         xValues.append(s.strftime("%Y-%m-%d"))
         trace1Values.append(value[k][3])
