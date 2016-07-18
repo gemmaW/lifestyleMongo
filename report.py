@@ -22,6 +22,8 @@ def show_report():
 
 
 def ls_summary():
+    # blank input inserted to create pause effect for user input on report choice
+    input(" ")
     try:
         year1 = str(input('Enter a year: (' + str(date.today().year) + '): '))
     except:
@@ -62,6 +64,8 @@ def ls_summary():
 
 
 def sales_by_show():
+    # blank input inserted to create pause effect for user input on report choice
+    input(" ")
     try:
         year1 = str(input('Enter a year: (START) (' + str(date.today().year) + '): '))
     except:
@@ -88,14 +92,13 @@ def sales_by_show():
 # ls_summary()
 # sales_by_show()
 
-# def chooseReport():
-#     print("Test.")
-#
-# func_dict = {'chooseReport': chooseReport}
-# if __name__ == "__main__":
-#     input("Press enter to begin.")
-#     currentEnvironment = "room" #getNewEnvironment(environments)
-#     currentTimeOfDay = "1 A.M." #getTime(timeTicks, timeOfDay)
-#     # print("You are standing in the {0}. It is {1}.".format(currentEnvironment, currentTimeOfDay))
-#     command = input("> ")
-#     func_dict[command]()
+
+def chooseReport():
+    userChoice = int(input('Choose a report: (1) summary (2) sales by show '))
+    print("Press enter to begin. You will then be asked to select your date range, starting with the year")
+    if userChoice == 1:
+        ls_summary()
+    if userChoice == 2:
+        sales_by_show()
+
+chooseReport()
