@@ -54,7 +54,7 @@ def main():
     """Shows basic usage of the Sheets API.
 
     Creates a Sheets API service object and prints the names and majors of
-    students in a sample spreadsheet: p
+    students in a sample spreadsheet:
     https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/edit
     """
     credentials = get_credentials()

@@ -42,17 +42,25 @@ def ls_summary():
 
 def input_show_report():
     try:
-        year1 = str(input('Enter a year (' + str(date.today().year) + '): '))
-    except SyntaxError:
-        year1 = date.today().year
+        year1 = str(input('Enter a year: (' + str(date.today().year) + '): '))
+    except:
+        year1 = str(date.today().year)
+    if year1 == '':
+        year1 = str(date.today().year)
     print(year1)
-    month1 = str(input('Enter a month: '))
-    day1 = str(input('Enter a day: '))
-    startDate = datetime.strptime(year1 + "-" + month1 + "-" + day1, "%Y-%m-%d")
-    year2 = str(input('Enter a year: '))
+    month1 = input('Enter a month: ')
+    day1 = input('Enter a day: ')
+    # startDate = datetime.strptime(str(year1 + "-" + month1 + "-" + day1), "%Y-%m-%d")
+    try:
+        year2 = str(input('Enter a year: (' + str(date.today().year) + '): '))
+    except:
+        year2 = str(date.today().year)
+    if year2 == '':
+        year2 = str(date.today().year)
+    print(year2)
     month2 = str(input('Enter a month: '))
     day2 = str(input('Enter a day: '))
-    endDate = datetime.strptime(year2 + "-" + month2 + "-" + day2, "%Y-%m-%d")
+    # endDate = datetime.strptime(year2 + "-" + month2 + "-" + day2, "%Y-%m-%d")
     mainList = monga.mongo_call(year1 + "-" + month1 + "-" + day1, year2 + "-" + month2 + "-" + day2)
     monga.create_docs(mainList[0], mainList[1], mainList[2], mainList[3], mainList[4], mainList[5], mainList[6], mainList[7], mainList[8], mainList[9], mainList[10], mainList[11])
 
