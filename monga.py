@@ -63,13 +63,12 @@ def generic_regroup(values, keys):
 my_start_str = "2016-07-12T00:00:00Z"
 my_end_str = "2016-07-12T23:59:59Z"
 
-
 def mongo_call(startDate, endDate):
 
     my_start_str = startDate + "T00:00:00Z"
     my_end_str = endDate + "T23:59:59Z"
 
-    x = read_mongo(my_start_str, my_end_str, 'lifestyle-checkout', 'basket', {"orderId": 600460597}, '10.10.20.153', 27017, 'reportsUser', 'ch*ckoUt20*6', True)
+    x = read_mongo(my_start_str, my_end_str, 'lifestyle-checkout', 'basket', { "orderId" : 600460597 }, '10.10.20.153', 27017, 'reportsUser', 'ch*ckoUt20*6', True)
 
     y = x.products.values
 
@@ -137,7 +136,7 @@ def mongo_call(startDate, endDate):
             margin = 0
 
         #print x.orderId[total_transactions], x.isoLastModifiedDateTime[total_transactions].strftime("%Y-%m-%d %H:%M"), j["performance"]["name"], float(j["displayPrices"]["grandTotal"]), int(j["tickets"][0]["quantity"]), md, restaurantPPP, promoMessage, j["financeData"]["productSourceSystem"]
-        mylist.append([str(x.orderId[total_transactions]), x.isoLastModifiedDateTime[total_transactions].strftime("%Y-%m-%d %H:%M"), j["performance"]["name"], float(j["displayPrices"]["grandTotal"]), bookingFee, commission, margin, int(j["tickets"][0]["quantity"]), md, restaurantPPP, promoMessage, j["financeData"]["productSourceSystem"], restorationLevy])
+        mylist.append([x.orderId[total_transactions], x.isoLastModifiedDateTime[total_transactions].strftime("%Y-%m-%d %H:%M"), j["performance"]["name"], float(j["displayPrices"]["grandTotal"]), bookingFee, commission, margin, int(j["tickets"][0]["quantity"]), md, restaurantPPP, promoMessage, j["financeData"]["productSourceSystem"], restorationLevy])
         #print j['displayPrices']
         #print float(j["displayPrices"]["grandTotal"])
         total_transactions += 1
@@ -191,36 +190,36 @@ def create_docs(mylist, filename, total_gtv, total_transactions, total_tickets, 
     sheets.main(mylist)
 
 
-# def daterange(start_date, end_date):
-#     for n in range(int((end_date - start_date).days)):
-#         yield start_date + timedelta(n)
-#
-#
-# def main():
-#     mainList = mongo_call("2016-07-13", "2016-07-13")
-#     create_docs(mainList[0], mainList[1], mainList[2], mainList[3], mainList[4], mainList[5], mainList[6], mainList[7], mainList[8], mainList[9])
-#
-#
-# def ls_summary():
-#     start_date = date(2016, 7, 11)
-#     end_date = date(2016, 7, 18)
-#     budget, lastYear = newSheets.main()
-#     print("ly:")
-#     print(lastYear)
-#     print("budget:")
-#     print(budget)
-#     budgetPlot = {}
-#     for single_date in daterange(start_date, end_date):
-#         lyDate = (single_date - timedelta(days=365))
-#         mainList = mongo_call(single_date.strftime("%Y-%m-%d"), single_date.strftime("%Y-%m-%d"))
-#         budget[single_date.strftime("%d/%m/%Y")].append(str(mainList[2]))
-#         budget[single_date.strftime("%d/%m/%Y")].append(str(lastYear[lyDate.strftime("%d/%m/%Y")][1]))
-#         budgetPlot[single_date.strftime("%d/%m/%Y")] = budget[single_date.strftime("%d/%m/%Y")]
-#         print(budget[single_date.strftime("%d/%m/%Y")])
-#     plotGraph.trace_graph(budgetPlot)
-#
-#
-# ls_summary()
+def daterange(start_date, end_date):
+    for n in range(int((end_date - start_date).days)):
+        yield start_date + timedelta(n)
+
+
+def main():
+    mainList = mongo_call("2016-07-13", "2016-07-13")
+    create_docs(mainList[0], mainList[1], mainList[2], mainList[3], mainList[4], mainList[5], mainList[6], mainList[7], mainList[8], mainList[9])
+
+
+def ls_summary():
+    start_date = date(2016, 7, 7)
+    end_date = date(2016, 7, 14)
+    budget, lastYear = newSheets.main()
+    print("ly:")
+    print(lastYear)
+    print("budget:")
+    print(budget)
+    budgetPlot = {}
+    for single_date in daterange(start_date, end_date):
+        lyDate = (single_date - timedelta(days=365))
+        mainList = mongo_call(single_date.strftime("%Y-%m-%d"), single_date.strftime("%Y-%m-%d"))
+        budget[single_date.strftime("%d/%m/%Y")].append(str(mainList[2]))
+        budget[single_date.strftime("%d/%m/%Y")].append(str(lastYear[lyDate.strftime("%d/%m/%Y")][1]))
+        budgetPlot[single_date.strftime("%d/%m/%Y")] = budget[single_date.strftime("%d/%m/%Y")]
+        print(budget[single_date.strftime("%d/%m/%Y")])
+    plotGraph.trace_graph(budgetPlot)
+
+
+ls_summary()
 
 
 
