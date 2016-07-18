@@ -41,10 +41,11 @@ def ls_summary():
 
 
 def input_show_report():
-    year1 = str(input('Enter a year (' + str(date.today().year) + '): '))
-    print(year1)
-    if year1 is False:
+    try:
+        year1 = str(input('Enter a year (' + str(date.today().year) + '): '))
+    except SyntaxError:
         year1 = date.today().year
+    print(year1)
     month1 = str(input('Enter a month: '))
     day1 = str(input('Enter a day: '))
     startDate = datetime.strptime(year1 + "-" + month1 + "-" + day1, "%Y-%m-%d")
