@@ -64,8 +64,8 @@ def ls_summary():
         budget[single_date.strftime("%d/%m/%Y")].append(str(mainList[2]))
         budget[single_date.strftime("%d/%m/%Y")].append(str(lastYear[lyDate.strftime("%d/%m/%Y")][1]))
         budgetPlot[single_date.strftime("%d/%m/%Y")] = budget[single_date.strftime("%d/%m/%Y")]
-        print(budget[single_date.strftime("%d/%m/%Y")])
-        print(lyDate)
+        # print(budget[single_date.strftime("%d/%m/%Y")])
+        # print(lyDate)
     plotGraph.trace_graph(budgetPlot)
 
 
