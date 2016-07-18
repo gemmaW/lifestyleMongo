@@ -145,11 +145,11 @@ def mongo_call(startDate, endDate):
         total_commission = total_commission + commission
         total_bookingFee = total_bookingFee + bookingFee
 
-    data_packet = [mylist, filename, total_gtv, total_transactions, total_tickets, meal_deals, total_commission, total_bookingFee, vat, showsDict]
+    data_packet = [mylist, filename, total_gtv, total_transactions, total_tickets, meal_deals, total_commission, total_bookingFee, vat, showsDict, startDate, endDate]
     return data_packet
 
 
-def create_docs(mylist, filename, total_gtv, total_transactions, total_tickets, meal_deals, total_commission, total_bookingFee, vat, showsDict):
+def create_docs(mylist, filename, total_gtv, total_transactions, total_tickets, meal_deals, total_commission, total_bookingFee, vat, showsDict, startDate, endDate):
     myfile = open(filename, 'wb')
     wr = csv.writer(myfile, quoting=csv.QUOTE_ALL)
     print(mylist)
@@ -161,8 +161,8 @@ def create_docs(mylist, filename, total_gtv, total_transactions, total_tickets, 
     mylist.insert(0, ['# Margin %: '+str((1-(total_gtv/vat-(total_commission+total_bookingFee))/(total_gtv/vat))*100)])
     mylist.insert(0, ['# Total Margin: '+str(total_commission+total_bookingFee)])
     mylist.insert(0, ['# Total GTV: '+str(total_gtv)])
-    mylist.insert(0, ['# End Date: '+my_end_str])
-    mylist.insert(0, ['# Start Date: '+my_start_str])
+    mylist.insert(0, ['# End Date: '+endDate])
+    mylist.insert(0, ['# Start Date: '+startDate])
     mylist.insert(0, ['# 01_Sales Overview'])
     mylist.insert(0, ['# ----------------------------------------'])
 
@@ -196,8 +196,8 @@ def daterange(start_date, end_date):
 
 
 def main():
-    mainList = mongo_call("2016-07-13", "2016-07-13")
-    create_docs(mainList[0], mainList[1], mainList[2], mainList[3], mainList[4], mainList[5], mainList[6], mainList[7], mainList[8], mainList[9])
+    mainList = mongo_call("2016-07-11", "2016-07-17")
+    create_docs(mainList[0], mainList[1], mainList[2], mainList[3], mainList[4], mainList[5], mainList[6], mainList[7], mainList[8], mainList[9], mainList[10], mainList[11])
 
 
 def ls_summary():
@@ -219,7 +219,7 @@ def ls_summary():
     plotGraph.trace_graph(budgetPlot)
 
 
-ls_summary()
+main()
 
 
 
