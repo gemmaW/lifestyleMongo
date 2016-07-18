@@ -8,6 +8,8 @@ import sheets
 import newSheets
 from datetime import datetime, timedelta, date
 import plotGraph
+from sys import version_info
+from builtins import input
 
 
 
@@ -22,6 +24,9 @@ def show_report():
 
 
 def ls_summary():
+    # # input function in 2 and 3 is different
+    # if version_info < (3, 0):
+    #     input = raw_input
     # blank input inserted to create pause effect for user input on report choice
     input(" ")
     try:
@@ -54,12 +59,13 @@ def ls_summary():
     # print(budget)
     budgetPlot = {}
     for single_date in daterange(startDate, endDate):
-        lyDate = (single_date - timedelta(days=365))
+        lyDate = (single_date - timedelta(days=364))
         mainList = monga.mongo_call(single_date.strftime("%Y-%m-%d"), single_date.strftime("%Y-%m-%d"))
         budget[single_date.strftime("%d/%m/%Y")].append(str(mainList[2]))
         budget[single_date.strftime("%d/%m/%Y")].append(str(lastYear[lyDate.strftime("%d/%m/%Y")][1]))
         budgetPlot[single_date.strftime("%d/%m/%Y")] = budget[single_date.strftime("%d/%m/%Y")]
-        # print(budget[single_date.strftime("%d/%m/%Y")])
+        print(budget[single_date.strftime("%d/%m/%Y")])
+        print(lyDate)
     plotGraph.trace_graph(budgetPlot)
 
 
@@ -94,7 +100,7 @@ def sales_by_show():
 
 
 def chooseReport():
-    userChoice = int(input('Choose a report: (1) summary (2) sales by show '))
+    userChoice = int(eval(input('Choose a report: (1) summary (2) sales by show ')))
     print("Press enter to begin. You will then be asked to select your date range, starting with the year")
     if userChoice == 1:
         ls_summary()
@@ -102,3 +108,4 @@ def chooseReport():
         sales_by_show()
 
 chooseReport()
+
