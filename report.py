@@ -18,11 +18,11 @@ def daterange(start_date, end_date):
 
 def show_report():
     mainList = monga.mongo_call("2016-07-13", "2016-07-13")
-    monga.create_docs(mainList[0], mainList[1], mainList[2], mainList[3], mainList[4], mainList[5], mainList[6], mainList[7], mainList[8], mainList[9])
+    monga.create_docs(mainList[0], mainList[1], mainList[2], mainList[3], mainList[4], mainList[5], mainList[6], mainList[7], mainList[8], mainList[9], mainList[10], mainList[11])
 
 
 def ls_summary():
-    start_date = date(2016, 7, 11)
+    start_date = date(2016, 7, 16)
     end_date = date(2016, 7, 18)
     budget, lastYear = newSheets.main()
     # print("ly:")
@@ -50,9 +50,10 @@ def input_show_report():
     day2 = str(input('Enter a day: '))
     endDate = datetime.strptime(year2 + "-" + month2 + "-" + day2, "%Y-%m-%d")
     mainList = monga.mongo_call(year1 + "-" + month1 + "-" + day1, year2 + "-" + month2 + "-" + day2)
-    monga.create_docs(mainList[0], mainList[1], mainList[2], mainList[3], mainList[4], mainList[5], mainList[6], mainList[7], mainList[8], mainList[9])
+    monga.create_docs(mainList[0], mainList[1], mainList[2], mainList[3], mainList[4], mainList[5], mainList[6], mainList[7], mainList[8], mainList[9], mainList[10], mainList[11])
 
-input_show_report()
+ls_summary()
+#input_show_report()
 
 # def get_date_input():
 #     year = int(input('Enter a year'))
