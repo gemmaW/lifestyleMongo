@@ -63,6 +63,7 @@ def generic_regroup(values, keys):
 my_start_str = "2016-07-12T00:00:00Z"
 my_end_str = "2016-07-12T23:59:59Z"
 
+
 def mongo_call(startDate, endDate):
 
     my_start_str = startDate + "T00:00:00Z"
@@ -135,10 +136,10 @@ def mongo_call(startDate, endDate):
             bookingFee = 0
             margin = 0
 
-        #print x.orderId[total_transactions], x.isoLastModifiedDateTime[total_transactions].strftime("%Y-%m-%d %H:%M"), j["performance"]["name"], float(j["displayPrices"]["grandTotal"]), int(j["tickets"][0]["quantity"]), md, restaurantPPP, promoMessage, j["financeData"]["productSourceSystem"]
+        # print x.orderId[total_transactions], x.isoLastModifiedDateTime[total_transactions].strftime("%Y-%m-%d %H:%M"), j["performance"]["name"], float(j["displayPrices"]["grandTotal"]), int(j["tickets"][0]["quantity"]), md, restaurantPPP, promoMessage, j["financeData"]["productSourceSystem"]
         mylist.append([str(x.orderId[total_transactions]), x.isoLastModifiedDateTime[total_transactions].strftime("%Y-%m-%d %H:%M"), j["performance"]["name"], float(j["displayPrices"]["grandTotal"]), bookingFee, commission, margin, int(j["tickets"][0]["quantity"]), md, restaurantPPP, promoMessage, j["financeData"]["productSourceSystem"], restorationLevy])
-        #print j['displayPrices']
-        #print float(j["displayPrices"]["grandTotal"])
+        # print j['displayPrices']
+        # print float(j["displayPrices"]["grandTotal"])
         total_transactions += 1
         total_gtv = total_gtv + float(j["displayPrices"]["grandTotal"])
         total_tickets = total_tickets + int(j["tickets"][0]["quantity"])

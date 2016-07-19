@@ -10,7 +10,7 @@ from datetime import datetime, timedelta, date
 import plotGraph
 from sys import version_info
 from builtins import input
-
+from monga import mongo_call
 
 
 def daterange(start_date, end_date):
@@ -99,13 +99,16 @@ def sales_by_show():
 # sales_by_show()
 
 
-def chooseReport():
-    userChoice = int(eval(input('Choose a report: (1) summary (2) sales by show ')))
+def choose_report():
+    userChoice = int(eval(input('Choose a report: (1) summary (2) sales by show (3) spotcheck ')))
     print("Press enter to begin. You will then be asked to select your date range, starting with the year")
     if userChoice == 1:
         ls_summary()
     if userChoice == 2:
         sales_by_show()
 
-chooseReport()
+choose_report()
+
+
+
 
