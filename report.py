@@ -10,7 +10,6 @@ from datetime import datetime, timedelta, date
 import plotGraph
 from sys import version_info
 from builtins import input
-from monga import mongo_call
 
 
 def daterange(start_date, end_date):
@@ -59,7 +58,7 @@ def ls_summary():
     # print(budget)
     budgetPlot = {}
     for single_date in daterange(startDate, endDate):
-        lyDate = (single_date - timedelta(days=364))
+        lyDate = (single_date - timedelta(days=365))
         mainList = monga.mongo_call(single_date.strftime("%Y-%m-%d"), single_date.strftime("%Y-%m-%d"))
         budget[single_date.strftime("%d/%m/%Y")].append(str(mainList[2]))
         budget[single_date.strftime("%d/%m/%Y")].append(str(lastYear[lyDate.strftime("%d/%m/%Y")][1]))
@@ -101,7 +100,7 @@ def sales_by_show():
 
 def choose_report():
     userChoice = int(eval(input('Choose a report: (1) summary (2) sales by show (3) spotcheck ')))
-    print("Press enter to begin. You will then be asked to select your date range, starting with the year")
+    print("Press enter to begin.")
     if userChoice == 1:
         ls_summary()
     if userChoice == 2:
@@ -110,5 +109,4 @@ def choose_report():
 choose_report()
 
 
-
-
+# def spot_check():

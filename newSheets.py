@@ -95,7 +95,7 @@ def main():
     if not values:
         print('No data found.')
     else:
-        print('Name, Major:')
+        # print('Name, Major:')
         for row in values:
             # Print columns A and E, which correspond to indices 0 and 4.
             #print('%s, %s, %s' % (row[2], str(float(row[18][1:].replace(',', ''))+float(row[19][1:].replace(',', ''))+float(row[20][1:].replace(',', ''))+float(row[21][1:].replace(',', ''))+float(row[22][1:].replace(',', ''))), str(float(row[18][1:].replace(',', '')))))
