@@ -8,6 +8,9 @@ import sheets
 import newSheets
 from datetime import datetime, timedelta, date
 import plotGraph
+from dateutil import tz
+
+
 
 def _connect_mongo(host, port, username, password, db):
     """ A util for making a connection to mongo """
@@ -65,6 +68,10 @@ my_end_str = "2016-07-12T23:59:59Z"
 
 
 def mongo_call(startDate, endDate):
+
+    # METHOD 1: Hardcode zones:
+    from_zone = tz.gettz('UTC')
+    to_zone = tz.gettz('Europe/London')
 
     my_start_str = startDate + "T00:00:00Z"
     my_end_str = endDate + "T23:59:59Z"
@@ -136,8 +143,22 @@ def mongo_call(startDate, endDate):
             bookingFee = 0
             margin = 0
 
+        times = (str(x.isoLastModifiedDateTime[total_transactions])).split(":")
+        donetime = times[0] + ":" + times[1]
+
+        # utc = datetime.utcnow()
+        utc = datetime.strptime(donetime, '%Y-%m-%d %H:%M')
+
+        # Tell the datetime object that it's in UTC time zone since
+        # datetime objects are 'naive' by default
+        utc = utc.replace(tzinfo=to_zone)
+
+        # Convert time zone
+        londonTime = utc.astimezone(from_zone)
+        timeString = londonTime.strftime('%Y-%m-%d %H:%M')
+
         # print x.orderId[total_transactions], x.isoLastModifiedDateTime[total_transactions].strftime("%Y-%m-%d %H:%M"), j["performance"]["name"], float(j["displayPrices"]["grandTotal"]), int(j["tickets"][0]["quantity"]), md, restaurantPPP, promoMessage, j["financeData"]["productSourceSystem"]
-        mylist.append([str(x.orderId[total_transactions]), x.isoLastModifiedDateTime[total_transactions].strftime("%Y-%m-%d %H:%M"), j["performance"]["name"], float(j["displayPrices"]["grandTotal"]), bookingFee, commission, margin, int(j["tickets"][0]["quantity"]), md, restaurantPPP, promoMessage, j["financeData"]["productSourceSystem"], restorationLevy])
+        mylist.append([str(x.orderId[total_transactions]), timeString, j["performance"]["name"], float(j["displayPrices"]["grandTotal"]), bookingFee, commission, margin, int(j["tickets"][0]["quantity"]), md, restaurantPPP, promoMessage, j["financeData"]["productSourceSystem"], restorationLevy])
         # print j['displayPrices']
         # print float(j["displayPrices"]["grandTotal"])
         total_transactions += 1
