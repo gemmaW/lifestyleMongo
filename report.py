@@ -9,15 +9,16 @@ import newSheets
 from datetime import datetime, timedelta, date
 import plotGraph
 import datetime
+import time
 
 def daterange(start_date, end_date):
     for n in range(int((end_date - start_date).days)):
         yield start_date + timedelta(n)
 
 
-def show_report():
-    mainList = monga.mongo_call("2016-07-18", "2016-07-24")
-    monga.create_docs(mainList[0], mainList[1], mainList[2], mainList[3], mainList[4], mainList[5], mainList[6], mainList[7], mainList[8], mainList[9], mainList[10], mainList[11])
+# def show_report():
+#     mainList = monga.mongo_call("2016-07-25", "2016-07-25")
+#     monga.create_docs(mainList[0], mainList[1], mainList[2], mainList[3], mainList[4], mainList[5], mainList[6], mainList[7], mainList[8], mainList[9], mainList[10], mainList[11])
 
 
 def ls_summary():
@@ -46,39 +47,63 @@ def ls_summary():
 
 
 def sales_by_show():
-    mainList = monga.mongo_call("2016-07-18", "2016-07-24")
+    mainList = monga.mongo_call("2016-07-25", "2016-07-25")
     monga.create_docs(mainList[0], mainList[1], mainList[2], mainList[3], mainList[4], mainList[5], mainList[6], mainList[7], mainList[8], mainList[9], mainList[10], mainList[11])
 
 # ls_summary()
 # sales_by_show()
+
 
 def hourly_heatmap():
     mainList = monga.mongo_call("2016-07-18", "2016-07-24")
     plotGraph.hourly_heat(mainList[0][1:])
 
 
+def today_spot():
+    to_day = (time.strftime("%d/%m/%Y"))
+    mainList = monga.mongo_call(to_day, to_day)
+    print("Total GTV:" + "£" + (str(mainList[2])))
+    print("Total Bookings:" + (str(mainList[3])))
+    print("Total Tickets:" + (str(mainList[4])))
+    print("Total Commission:" + "£" + (str(mainList[6])))
+
+
 def spot_check():
-    # # blank input to create a pause effect for user input
-    # input('Press enter to begin')
-    try:
-        year1 = str(input('Enter a year: (START) (' + str(date.today().year) + '): '))
-    except:
-        year1 = str(date.today().year)
-    if year1 == '':
-        year1 = str(date.today().year)
-    print(year1)
-    month1 = input('Enter a month: (START) ')
-    day1 = input('Enter a day: (START) ')
-    try:
-        year2 = str(input('Enter a year: (END) (' + str(date.today().year) + '): '))
-    except:
-        year2 = str(date.today().year)
-    if year2 == '':
-        year2 = str(date.today().year)
-    print(year2)
-    month2 = input('Enter a month: (END) ')
-    day2 = input('Enter a day: (END) ')
-    mainList = monga.mongo_call(year1 + "-" + month1 + "-" + day1, year2 + "-" + month2 + "-" + day2)
+    userChoice1 = int(input('Select a date range to check: (1) today (2) yesterday (3) manual range '))
+    if userChoice1 == 1:
+        print("Yay!")
+        x = datetime.datetime.now.strftime(x, "%Y-%m-%d"())
+        print(x)
+        # startD= x.strfdelta(x, "%Y-%m-%d")
+        # endD = startD
+        # print(startD)
+
+    if userChoice1 == 2:
+        startTime = datetime.datetime.now()-timedelta(1)
+        endTime = datetime.datetime.now() - timedelta(1)
+
+    if userChoice1 == 3:
+        try:
+            year1 = str(input('Enter a year: (START) (' + str(date.today().year) + '): '))
+        except:
+            year1 = str(date.today().year)
+        if year1 == '':
+            year1 = str(date.today().year)
+        print(year1)
+        month1 = input('Enter a month: (START) ')
+        day1 = input('Enter a day: (START) ')
+        try:
+            year2 = str(input('Enter a year: (END) (' + str(date.today().year) + '): '))
+        except:
+            year2 = str(date.today().year)
+        if year2 == '':
+            year2 = str(date.today().year)
+        print(year2)
+        month2 = input('Enter a month: (END) ')
+        day2 = input('Enter a day: (END) ')
+
+
+    mainList = monga.mongo_call(startTime, endTime)
     print("Total GTV:" + "£" + (str(mainList[2])))
     print("Total Bookings:" + (str(mainList[3])))
     print("Total Tickets:" + (str(mainList[4])))
@@ -87,7 +112,7 @@ def spot_check():
 
 def choose_report():
     # input = raw_input
-    userChoice = int(eval(input('Choose a report: /n (1) summary (2) sales by show (3) hourly (4) spot check ')))
+    userChoice = int(eval(input('Choose a report: /n (1) summary (2) sales by show (3) hourly (4) spot check (5) today ')))
     if userChoice == 1:
         ls_summary()
     if userChoice == 2:
@@ -96,4 +121,6 @@ def choose_report():
         hourly_heatmap()
     if userChoice == 4:
         spot_check()
+    if userChoice == 5:
+        today_spot()
 choose_report()
