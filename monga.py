@@ -162,9 +162,9 @@ def mongo_call(startDate, endDate):
         # print j['displayPrices']
         # print float(j["displayPrices"]["grandTotal"])
         total_transactions += 1
-        total_gtv = total_gtv + float(j["displayPrices"]["grandTotal"])
+        total_gtv = round(total_gtv + float(j["displayPrices"]["grandTotal"]),2)
         total_tickets = total_tickets + int(j["tickets"][0]["quantity"])
-        total_commission = total_commission + commission
+        total_commission = round(total_commission + commission,2)
         total_bookingFee = total_bookingFee + bookingFee
 
     data_packet = [mylist, filename, total_gtv, total_transactions, total_tickets, meal_deals, total_commission, total_bookingFee, vat, showsDict, startDate, endDate]

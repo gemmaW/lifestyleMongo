@@ -6,7 +6,7 @@ import unicodecsv as csv
 from operator import itemgetter
 import sheets
 import newSheets
-from datetime import datetime, timedelta, date
+from datetime import datetime, timedelta, date, time
 import plotGraph
 from sys import version_info
 # from builtins import input
@@ -35,13 +35,15 @@ def ls_summary():
     # print(budget)
     budgetPlot = {}
     for single_date in daterange(startDate, endDate):
-        lyDate = (single_date - timedelta(days=365))
+        lyDate = (single_date - timedelta(days=364))
         mainList = monga.mongo_call(single_date.strftime("%Y-%m-%d"), single_date.strftime("%Y-%m-%d"))
         budget[single_date.strftime("%d/%m/%Y")].append(str(mainList[2]))
         budget[single_date.strftime("%d/%m/%Y")].append(str(lastYear[lyDate.strftime("%d/%m/%Y")][1]))
         budgetPlot[single_date.strftime("%d/%m/%Y")] = budget[single_date.strftime("%d/%m/%Y")]
+        print("---------------")
+        print(single_date.strftime("%d/%m/%Y"))
         # print(budget[single_date.strftime("%d/%m/%Y")])
-        # print(lyDate)
+        print(lyDate)
     plotGraph.trace_graph(budgetPlot)
 
 
@@ -57,17 +59,47 @@ def hourly_heatmap():
     plotGraph.hourly_heat(mainList[0][1:])
 
 
-
+def spot_check():
+    # blank input to create a pause effect for user input
+    input('Press enter to begin')
+    try:
+        year1 = str(input('Enter a year: (START) (' + str(date.today().year) + '): '))
+    except:
+        year1 = str(date.today().year)
+    if year1 == '':
+        year1 = str(date.today().year)
+    print(year1)
+    month1 = input('Enter a month: (START) ')
+    day1 = input('Enter a day: (START) ')
+    startDate = date.time.strptime(str(year1 + "-" + month1 + "-" + day1), "%Y-%m-%d")
+    try:
+        year2 = str(input('Enter a year: (END) (' + str(date.today().year) + '): '))
+    except:
+        year2 = str(date.today().year)
+    if year2 == '':
+        year2 = str(date.today().year)
+    print(year2)
+    month2 = input('Enter a month: (END) ')
+    day2 = input('Enter a day: (END) ')
+    endDate = date.time.strptime(str(year2 + "-" + month2 + "-" + day2), "%Y-%m-%d")
+    mainList = monga.mongo_call(year1 + "-" + month1 + "-" + day1, year2 + "-" + month2 + "-" + day2)
+    print("Spot Check Period:" + (str(startDate, endDate)))
+    print("Total GTV:" + "£" + (str(mainList[2])))
+    print("Total Bookings:" + (str(mainList[3])))
+    print("Total Tickets:" + (str(mainList[4])))
+    print("Total Commission:" + "£" + (str(mainList[6])))
 
 def choose_report():
-    input = raw_input
-    userChoice = int(eval(input('Choose a report: /n (1) summary (2) sales by show (3) spotcheck (4) hourly')))
+    # input = raw_input
+    userChoice = int(eval(input('Choose a report: /n (1) summary (2) sales by show (3) hourly (4) spot check ')))
     if userChoice == 1:
         ls_summary()
     if userChoice == 2:
         sales_by_show()
-    if userChoice == 4:
+    if userChoice == 3:
         hourly_heatmap()
+    if userChoice == 4:
+        spot_check()
 choose_report()
 
 
