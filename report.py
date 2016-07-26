@@ -6,11 +6,9 @@ import unicodecsv as csv
 from operator import itemgetter
 import sheets
 import newSheets
-from datetime import datetime, timedelta, date, time
+from datetime import datetime, timedelta, date
 import plotGraph
-from sys import version_info
-# from builtins import input
-
+import datetime
 
 def daterange(start_date, end_date):
     for n in range(int((end_date - start_date).days)):
@@ -25,7 +23,7 @@ def show_report():
 def ls_summary():
     startDate = datetime.strptime("2016,07,18", "%Y,%m,%d")
     endDate = datetime.strptime("2016,07,25", "%Y,%m,%d")
-    #
+
     # start_date = date(2016, 7, 16)
     # end_date = date(2016, 7, 18)
     budget, lastYear = newSheets.main()
@@ -60,8 +58,8 @@ def hourly_heatmap():
 
 
 def spot_check():
-    # blank input to create a pause effect for user input
-    input('Press enter to begin')
+    # # blank input to create a pause effect for user input
+    # input('Press enter to begin')
     try:
         year1 = str(input('Enter a year: (START) (' + str(date.today().year) + '): '))
     except:
@@ -71,7 +69,6 @@ def spot_check():
     print(year1)
     month1 = input('Enter a month: (START) ')
     day1 = input('Enter a day: (START) ')
-    startDate = date.time.strptime(str(year1 + "-" + month1 + "-" + day1), "%Y-%m-%d")
     try:
         year2 = str(input('Enter a year: (END) (' + str(date.today().year) + '): '))
     except:
@@ -81,13 +78,12 @@ def spot_check():
     print(year2)
     month2 = input('Enter a month: (END) ')
     day2 = input('Enter a day: (END) ')
-    endDate = date.time.strptime(str(year2 + "-" + month2 + "-" + day2), "%Y-%m-%d")
     mainList = monga.mongo_call(year1 + "-" + month1 + "-" + day1, year2 + "-" + month2 + "-" + day2)
-    print("Spot Check Period:" + (str(startDate, endDate)))
     print("Total GTV:" + "£" + (str(mainList[2])))
     print("Total Bookings:" + (str(mainList[3])))
     print("Total Tickets:" + (str(mainList[4])))
     print("Total Commission:" + "£" + (str(mainList[6])))
+
 
 def choose_report():
     # input = raw_input
@@ -101,6 +97,3 @@ def choose_report():
     if userChoice == 4:
         spot_check()
 choose_report()
-
-
-# def spot_check():
