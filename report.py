@@ -22,8 +22,8 @@ def daterange(start_date, end_date):
 
 
 def ls_summary():
-    startDate = datetime.strptime("2016,07,18", "%Y,%m,%d")
-    endDate = datetime.strptime("2016,07,25", "%Y,%m,%d")
+    startDate = datetime.datetime.strptime("2016,07,18", "%Y,%m,%d")
+    endDate = datetime.datetime.strptime("2016,07,25", "%Y,%m,%d")
 
     # start_date = date(2016, 7, 16)
     # end_date = date(2016, 7, 18)
@@ -47,7 +47,7 @@ def ls_summary():
 
 
 def sales_by_show():
-    mainList = monga.mongo_call("2016-07-25", "2016-07-25")
+    mainList = monga.mongo_call("2016-07-01", "2016-07-29")
     monga.create_docs(mainList[0], mainList[1], mainList[2], mainList[3], mainList[4], mainList[5], mainList[6], mainList[7], mainList[8], mainList[9], mainList[10], mainList[11])
 
 # ls_summary()
@@ -68,36 +68,30 @@ def today_spot():
     print("Total Commission:" + "£" + (str(mainList[6])))
 
 
+def quick_spot():
+    mainList = monga.mongo_call("2016-06-01", "2016-06-30")
+    print("Total GTV:" + "£" + (str(mainList[2])))
+    print("Total Bookings:" + (str(mainList[3])))
+    print("Total Tickets:" + (str(mainList[4])))
+    print("Total Commission:" + "£" + (str(mainList[6])))
+
+
 def spot_check():
-    userChoice1 = int(input('Select a date range to check: (1) today (2) yesterday (3) manual range '))
-    if userChoice1 == 1:
-        print("Yay!")
-        x = datetime.datetime.now.strftime(x, "%Y-%m-%d"())
-        print(x)
-        # startD= x.strfdelta(x, "%Y-%m-%d")
-        # endD = startD
-        # print(startD)
-
-    if userChoice1 == 2:
-        startTime = datetime.datetime.now()-timedelta(1)
-        endTime = datetime.datetime.now() - timedelta(1)
-
-    if userChoice1 == 3:
-        try:
-            year1 = str(input('Enter a year: (START) (' + str(date.today().year) + '): '))
-        except:
-            year1 = str(date.today().year)
-        if year1 == '':
-            year1 = str(date.today().year)
+    try:
+        year1 = str(input('Enter a year: (START) (' + str(date.today().year) + '): '))
+    except:
+        year1 = str(date.today().year)
+    if year1 == '':
+        year1 = str(date.today().year)
         print(year1)
         month1 = input('Enter a month: (START) ')
         day1 = input('Enter a day: (START) ')
-        try:
-            year2 = str(input('Enter a year: (END) (' + str(date.today().year) + '): '))
-        except:
-            year2 = str(date.today().year)
-        if year2 == '':
-            year2 = str(date.today().year)
+    try:
+        year2 = str(input('Enter a year: (END) (' + str(date.today().year) + '): '))
+    except:
+        year2 = str(date.today().year)
+    if year2 == '':
+        year2 = str(date.today().year)
         print(year2)
         month2 = input('Enter a month: (END) ')
         day2 = input('Enter a day: (END) ')
@@ -112,7 +106,7 @@ def spot_check():
 
 def choose_report():
     # input = raw_input
-    userChoice = int(eval(input('Choose a report: /n (1) summary (2) sales by show (3) hourly (4) spot check (5) today ')))
+    userChoice = int(eval(input('Choose a report: /n (1) summary (2) sales by show (3) hourly (4) spot check (5) today (6) quick spot ')))
     if userChoice == 1:
         ls_summary()
     if userChoice == 2:
@@ -123,4 +117,6 @@ def choose_report():
         spot_check()
     if userChoice == 5:
         today_spot()
+    if userChoice == 6:
+        quick_spot()
 choose_report()
