@@ -10,6 +10,8 @@ from datetime import datetime, timedelta, date
 import plotGraph
 import datetime
 import time
+import calendar
+
 
 def daterange(start_date, end_date):
     for n in range(int((end_date - start_date).days)):
@@ -47,7 +49,7 @@ def ls_summary():
 
 
 def sales_by_show():
-    mainList = monga.mongo_call("2015-12-01", "2015-12-31")
+    mainList = monga.mongo_call("2016-07-28", "2016-07-29")
     monga.create_docs(mainList[0], mainList[1], mainList[2], mainList[3], mainList[4], mainList[5], mainList[6], mainList[7], mainList[8], mainList[9], mainList[10], mainList[11])
 
 # ls_summary()
@@ -105,7 +107,13 @@ def quick_spot():
 
 
 def sotm_show():
-    mainList = monga.mongo_call("2016-07-01", "2016-07-31")
+    # monthInput = input('Enter the first day of the month you require (yyyy-mm-dd): ')
+    # # get the last day of the month from input
+    # getLastD = calendar.monthrange(2016, 7)
+    # print(getLastD)
+    #
+    # mainList = monga.mongo_call(str(monthInput), "2016-07-31")
+    mainList = monga.mongo_call("2016-08-01", "2016-08-31")
     showD = mainList[9]
     sotmShow = input('Enter the show (must be precise): ')
     v = showD[sotmShow]
