@@ -41,15 +41,15 @@ def ls_summary():
         budget[single_date.strftime("%d/%m/%Y")].append(str(mainList[2]))
         budget[single_date.strftime("%d/%m/%Y")].append(str(lastYear[lyDate.strftime("%d/%m/%Y")][1]))
         budgetPlot[single_date.strftime("%d/%m/%Y")] = budget[single_date.strftime("%d/%m/%Y")]
-        print("---------------")
-        print(single_date.strftime("%d/%m/%Y"))
+        # print("---------------")
+        # print(single_date.strftime("%d/%m/%Y"))
         # print(budget[single_date.strftime("%d/%m/%Y")])
-        print(lyDate)
+        # print(lyDate)
     plotGraph.trace_graph(budgetPlot)
 
 
 def sales_by_show():
-    mainList = monga.mongo_call("2016-07-28", "2016-07-29")
+    mainList = monga.mongo_call("2016-07-26", "2016-08-01")
     monga.create_docs(mainList[0], mainList[1], mainList[2], mainList[3], mainList[4], mainList[5], mainList[6], mainList[7], mainList[8], mainList[9], mainList[10], mainList[11])
 
 # ls_summary()
@@ -62,7 +62,8 @@ def hourly_heatmap():
 
 
 def today_spot():
-    to_day = (time.strftime("%d/%m/%Y"))
+    to_day = (time.strftime("%Y-%m-%d"))
+    print(to_day)
     mainList = monga.mongo_call(to_day, to_day)
     print("Total GTV:" + "£" + (str(mainList[2])))
     print("Total Bookings:" + (str(mainList[3])))
@@ -71,7 +72,7 @@ def today_spot():
 
 
 def quick_spot():
-    mainList = monga.mongo_call("2016-06-01", "2016-06-30")
+    mainList = monga.mongo_call("2016-08-01", "2016-08-01")
     print("Total GTV:" + "£" + (str(mainList[2])))
     print("Total Bookings:" + (str(mainList[3])))
     print("Total Tickets:" + (str(mainList[4])))
@@ -107,13 +108,7 @@ def quick_spot():
 
 
 def sotm_show():
-    # monthInput = input('Enter the first day of the month you require (yyyy-mm-dd): ')
-    # # get the last day of the month from input
-    # getLastD = calendar.monthrange(2016, 7)
-    # print(getLastD)
-    #
-    # mainList = monga.mongo_call(str(monthInput), "2016-07-31")
-    mainList = monga.mongo_call("2016-08-01", "2016-08-31")
+    mainList = monga.mongo_call("2016-07-01", "2016-07-31")
     showD = mainList[9]
     sotmShow = input('Enter the show (must be precise): ')
     v = showD[sotmShow]
@@ -126,7 +121,7 @@ def sotm_show():
 
 def choose_report():
     # input = raw_input
-    userChoice = int(eval(input('Choose a report: /n (1) summary (2) sales by show (3) hourly (4) today (5) quick spot (6) SOTM ')))
+    userChoice = int(eval(input('Choose a report: /n (1) summary (2) sales by show (3) hourly (4) today (5) quick spot (6) SOTM  ')))
     if userChoice == 1:
         ls_summary()
     if userChoice == 2:
@@ -139,4 +134,5 @@ def choose_report():
         quick_spot()
     if userChoice == 6:
         sotm_show()
+
 choose_report()
