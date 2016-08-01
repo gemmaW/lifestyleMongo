@@ -80,6 +80,10 @@ def mongo_call(startDate, endDate):
 
     y = x.products.values
 
+    #f = open('y.txt', 'w')
+    #f.write(json.dumps(y))
+    #f.close()
+
     total_bookingFee = 0
     total_commission = 0
     total_gtv = 0
@@ -115,7 +119,7 @@ def mongo_call(startDate, endDate):
         try:
             md = j["restaurant"]["mealCode"]
             restaurantPPP = j["restaurant"]["pricePerPerson"]
-            meal_deals += 1
+            meal_deals += int(j["tickets"][0]["quantity"])
             #print parsed_json
             #raw_input("Press Enter to continue...")
         except:
@@ -143,6 +147,16 @@ def mongo_call(startDate, endDate):
             bookingFee = 0
             margin = 0
 
+        try:
+            referer = j["originSource"]["referer"]
+        except:
+            referer = ""
+
+        try:
+            agent = j["originSource"]["userAgent"]
+        except:
+            agent = ""
+
         times = (str(x.isoLastModifiedDateTime[total_transactions])).split(":")
         donetime = times[0] + ":" + times[1]
 
@@ -158,7 +172,7 @@ def mongo_call(startDate, endDate):
         timeString = londonTime.strftime('%Y-%m-%d %H:%M')
 
         # print x.orderId[total_transactions], x.isoLastModifiedDateTime[total_transactions].strftime("%Y-%m-%d %H:%M"), j["performance"]["name"], float(j["displayPrices"]["grandTotal"]), int(j["tickets"][0]["quantity"]), md, restaurantPPP, promoMessage, j["financeData"]["productSourceSystem"]
-        mylist.append([str(x.orderId[total_transactions]), timeString, j["performance"]["name"], float(j["displayPrices"]["grandTotal"]), bookingFee, commission, margin, int(j["tickets"][0]["quantity"]), md, restaurantPPP, promoMessage, j["financeData"]["productSourceSystem"], restorationLevy])
+        mylist.append([str(x.orderId[total_transactions]), timeString, j["performance"]["name"], float(j["displayPrices"]["grandTotal"]), bookingFee, commission, margin, int(j["tickets"][0]["quantity"]), md, restaurantPPP, promoMessage, j["financeData"]["productSourceSystem"], restorationLevy, agent, referer])
         # print j['displayPrices']
         # print float(j["displayPrices"]["grandTotal"])
         total_transactions += 1
