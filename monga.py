@@ -120,7 +120,7 @@ def mongo_call(startDate, endDate):
             md = j["restaurant"]["mealCode"]
             restaurantPPP = j["restaurant"]["pricePerPerson"]
             meal_deals += int(j["tickets"][0]["quantity"])
-            #print parsed_json
+            #print parsed_json not used
             #raw_input("Press Enter to continue...")
         except:
             md = "False"
