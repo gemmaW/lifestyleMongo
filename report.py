@@ -72,7 +72,7 @@ def today_spot():
 
 
 def quick_spot():
-    mainList = monga.mongo_call("2016-08-01", "2016-08-01")
+    mainList = monga.mongo_call("2016-08-02", "2016-08-02")
     print("Total GTV:" + "£" + (str(mainList[2])))
     print("Total Bookings:" + (str(mainList[3])))
     print("Total Tickets:" + (str(mainList[4])))
@@ -107,21 +107,35 @@ def quick_spot():
 #     print("Total Commission:" + "£" + (str(mainList[6])))
 
 
-def sotm_show():
-    mainList = monga.mongo_call("2016-07-01", "2016-07-31")
+def show_spot():
+    mainList = monga.mongo_call("2016-08-01", "2016-08-31")
     showD = mainList[9]
-    sotmShow = input('Enter the show (must be precise): ')
-    v = showD[sotmShow]
+    showX = input('Enter the show (must be precise): ')
+    v = showD[showX]
     gtv = [item[0] for item in v]
     tickets = [item[1] for item in v]
-    print("SOTM: " + str(sotmShow))
+    print("Show: " + str(showX))
+    print("Total GTV:" + "£" + str(sum(gtv)))
+    print("Total Tickets:" + str(sum(tickets)))
+
+    sheets.main(showD[showX])
+
+
+def SOTM():
+    mainList = monga.mongo_call("2016-08-01", "2016-08-31")
+    showD = mainList[9]
+    showX = "In the Heights"
+    v = showD[showX]
+    gtv = [item[0] for item in v]
+    tickets = [item[1] for item in v]
+    print("SOTM: " + str(showX))
     print("Total GTV:" + "£" + str(sum(gtv)))
     print("Total Tickets:" + str(sum(tickets)))
 
 
 def choose_report():
     # input = raw_input
-    userChoice = int(eval(input('Choose a report: /n (1) summary (2) sales by show (3) hourly (4) today (5) quick spot (6) SOTM  ')))
+    userChoice = int(eval(input('Choose a report: /n (1) summary (2) sales by show (3) hourly (4) today (5) quick spot (6) show spot  (7) SOTM ')))
     if userChoice == 1:
         ls_summary()
     if userChoice == 2:
@@ -133,6 +147,8 @@ def choose_report():
     if userChoice == 5:
         quick_spot()
     if userChoice == 6:
-        sotm_show()
+        show_spot()
+    if userChoice == 7:
+        SOTM()
 
 choose_report()
