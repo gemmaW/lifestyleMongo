@@ -174,7 +174,7 @@ def mongo_call(startDate, endDate):
         # datetime objects are 'naive' by default
         utc = utc.replace(tzinfo=to_zone)
 
-        # Convert time zone
+        # Convert time zone to London
         londonTime = utc.astimezone(from_zone)
         timeString = londonTime.strftime('%Y-%m-%d %H:%M')
 
