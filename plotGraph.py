@@ -9,7 +9,7 @@ plotly.tools.set_credentials_file(username='gluzio', api_key='quey0vtequ')
 
 def trace_graph(value):
 
-    print(value)
+    # print(value)
 
     xValues = []
     trace1Values = []
@@ -65,7 +65,7 @@ def hourly_heat(values):
     daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
 
     for row in values:
-        print(row)
+        # print(row)
         day = datetime.strptime(row[1][:10], '%Y-%m-%d').strftime('%A')
         dayDict.setdefault(day, []).append(row[1][11:13])
 
@@ -84,7 +84,7 @@ def hourly_heat(values):
     dualList = []
     default_value = 0
     for i in range(24):
-        print("%02d" % (i,))
+        # print("%02d" % (i,))
         hourList = []
         hourList.append(monday.get("%02d" % (i,), "0"))
         hourList.append(tuesday.get("%02d" % (i,), "0"))
@@ -95,8 +95,8 @@ def hourly_heat(values):
         hourList.append(sunday.get("%02d" % (i,), "0"))
         dualList.append(hourList)
         yList.append("%02d" % (i,))
-    print(dualList)
-    print(yList)
+    # print(dualList)
+    # print(yList)
 
     data = [
         go.Heatmap(
