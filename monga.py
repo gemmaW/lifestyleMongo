@@ -78,6 +78,8 @@ def mongo_call(startDate, endDate):
 
     x = read_mongo(my_start_str, my_end_str, 'lifestyle-checkout', 'basket', { "orderId" : 600460597 }, '10.10.20.153', 27017, 'reportsUser', 'ch*ckoUt20*6', True)
 
+    x.to_csv("mongo_dump.csv", sep='\t', encoding='utf-8')
+
     y = x.products.values
 
     #f = open('y.txt', 'w')
@@ -90,7 +92,7 @@ def mongo_call(startDate, endDate):
     total_transactions = 0
     meal_deals = 0
     total_tickets = 0
-    mylist = [['ID', 'Date', 'Performance', 'Total Price', 'Booking Fee', 'Commission Amount', 'Margin %', 'No of Tickets', 'Meal Deal', 'Restaurant Price PP', 'Discounts', 'Platform', 'Restoration Levy']]
+    mylist = [['ID', 'Date', 'Performance', 'Total Price', 'Booking Fee', 'Commission Amount', 'Margin %', 'No of Tickets', 'Meal Deal', 'Restaurant Price PP', 'Discounts', 'Platform', 'Restoration Levy', 'Supplier', 'User Agent', 'Referrer']]
     filename = 'sales_' + my_start_str[:10] + '_' + my_end_str[:10] + '.csv'
 
 
@@ -157,6 +159,11 @@ def mongo_call(startDate, endDate):
         except:
             agent = ""
 
+        try:
+            supplier = j["financeData"]["supplier"]["supplierName"]
+        except:
+            supplier = ""
+
         times = (str(x.isoLastModifiedDateTime[total_transactions])).split(":")
         donetime = times[0] + ":" + times[1]
 
@@ -172,7 +179,7 @@ def mongo_call(startDate, endDate):
         timeString = londonTime.strftime('%Y-%m-%d %H:%M')
 
         # print x.orderId[total_transactions], x.isoLastModifiedDateTime[total_transactions].strftime("%Y-%m-%d %H:%M"), j["performance"]["name"], float(j["displayPrices"]["grandTotal"]), int(j["tickets"][0]["quantity"]), md, restaurantPPP, promoMessage, j["financeData"]["productSourceSystem"]
-        mylist.append([str(x.orderId[total_transactions]), timeString, j["performance"]["name"], float(j["displayPrices"]["grandTotal"]), bookingFee, commission, margin, int(j["tickets"][0]["quantity"]), md, restaurantPPP, promoMessage, j["financeData"]["productSourceSystem"], restorationLevy, agent, referer])
+        mylist.append([str(x.orderId[total_transactions]), timeString, j["performance"]["name"], float(j["displayPrices"]["grandTotal"]), bookingFee, commission, margin, int(j["tickets"][0]["quantity"]), md, restaurantPPP, promoMessage, j["financeData"]["productSourceSystem"], restorationLevy, supplier, agent, referer])
         # print j['displayPrices']
         # print float(j["displayPrices"]["grandTotal"])
         total_transactions += 1

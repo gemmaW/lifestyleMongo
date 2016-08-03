@@ -47,7 +47,7 @@ def ls_summary():
 
 
 def sales_by_show():
-    mainList = monga.mongo_call("2015-12-01", "2015-12-31")
+    mainList = monga.mongo_call("2016-08-02", "2016-08-03")
     monga.create_docs(mainList[0], mainList[1], mainList[2], mainList[3], mainList[4], mainList[5], mainList[6], mainList[7], mainList[8], mainList[9], mainList[10], mainList[11])
 
 # ls_summary()
@@ -62,18 +62,18 @@ def hourly_heatmap():
 def today_spot():
     to_day = (time.strftime("%d/%m/%Y"))
     mainList = monga.mongo_call(to_day, to_day)
-    print("Total GTV:" + "£" + (str(mainList[2])))
+    print("Total GTV: " + (str(mainList[2])))
     print("Total Bookings:" + (str(mainList[3])))
     print("Total Tickets:" + (str(mainList[4])))
-    print("Total Commission:" + "£" + (str(mainList[6])))
+    print("Total Commission: " + (str(mainList[6])))
 
 
 def quick_spot():
     mainList = monga.mongo_call("2016-06-01", "2016-06-30")
-    print("Total GTV:" + "£" + (str(mainList[2])))
+    print("Total GTV: " + (str(mainList[2])))
     print("Total Bookings:" + (str(mainList[3])))
     print("Total Tickets:" + (str(mainList[4])))
-    print("Total Commission:" + "£" + (str(mainList[6])))
+    print("Total Commission: " + (str(mainList[6])))
 
 
 # def spot_check():
@@ -98,10 +98,10 @@ def quick_spot():
 #
 #
 #     mainList = monga.mongo_call(startTime, endTime)
-#     print("Total GTV:" + "£" + (str(mainList[2])))
+#     print("Total GTV:"  + (str(mainList[2])))
 #     print("Total Bookings:" + (str(mainList[3])))
 #     print("Total Tickets:" + (str(mainList[4])))
-#     print("Total Commission:" + "£" + (str(mainList[6])))
+#     print("Total Commission:" + (str(mainList[6])))
 
 
 def sotm_show():
@@ -112,13 +112,13 @@ def sotm_show():
     gtv = [item[0] for item in v]
     tickets = [item[1] for item in v]
     print("SOTM: " + str(sotmShow))
-    print("Total GTV:" + "£" + str(sum(gtv)))
+    print("Total GTV:" + str(sum(gtv)))
     print("Total Tickets:" + str(sum(tickets)))
 
 
 def choose_report():
     # input = raw_input
-    userChoice = int(eval(input('Choose a report: /n (1) summary (2) sales by show (3) hourly (4) today (5) quick spot (6) SOTM ')))
+    userChoice = int(input('Choose a report: /n (1) summary (2) sales by show (3) hourly (4) today (5) quick spot (6) SOTM '))
     if userChoice == 1:
         ls_summary()
     if userChoice == 2:
