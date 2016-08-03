@@ -73,8 +73,8 @@ def mongo_call(startDate, endDate):
     from_zone = tz.gettz('UTC')
     to_zone = tz.gettz('Europe/London')
 
-    my_start_str = startDate + "T00:00:00Z"
-    my_end_str = endDate + "T23:59:59Z"
+    my_start_str = startDate + "T00:00:00"
+    my_end_str = endDate + "T23:59:59"
 
     x = read_mongo(my_start_str, my_end_str, 'lifestyle-checkout', 'basket', { "orderId" : 600460597 }, '10.10.20.153', 27017, 'reportsUser', 'ch*ckoUt20*6', True)
 
@@ -172,10 +172,10 @@ def mongo_call(startDate, endDate):
 
         # Tell the datetime object that it's in UTC time zone since
         # datetime objects are 'naive' by default
-        utc = utc.replace(tzinfo=to_zone)
+        utc = utc.replace(tzinfo=from_zone)
 
         # Convert time zone to London
-        londonTime = utc.astimezone(from_zone)
+        londonTime = utc.astimezone(to_zone)
         timeString = londonTime.strftime('%Y-%m-%d %H:%M')
 
         # print x.orderId[total_transactions], x.isoLastModifiedDateTime[total_transactions].strftime("%Y-%m-%d %H:%M"), j["performance"]["name"], float(j["displayPrices"]["grandTotal"]), int(j["tickets"][0]["quantity"]), md, restaurantPPP, promoMessage, j["financeData"]["productSourceSystem"]

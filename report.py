@@ -47,7 +47,7 @@ def ls_summary():
 
 
 def sales_by_show():
-    mainList = monga.mongo_call("2016-01-01", "2016-08-04")
+    mainList = monga.mongo_call("2016-08-03", "2016-08-04")
     monga.create_docs(mainList[0], mainList[1], mainList[2], mainList[3], mainList[4], mainList[5], mainList[6], mainList[7], mainList[8], mainList[9], mainList[10], mainList[11])
 
 # ls_summary()
@@ -55,7 +55,7 @@ def sales_by_show():
 
 
 def hourly_heatmap():
-    mainList = monga.mongo_call("2016-07-18", "2016-07-24")
+    mainList = monga.mongo_call("2016-07-25", "2016-07-31")
     plotGraph.hourly_heat(mainList[0][1:])
 
 
