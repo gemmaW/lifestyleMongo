@@ -209,19 +209,17 @@ def create_docs(mylist, filename, total_gtv, total_transactions, total_tickets, 
     mylist.insert(0, ['# 01_Sales Overview'])
     mylist.insert(0, ['# ----------------------------------------'])
 
-
     mylist.append([''])
     mylist.append([''])
-    mylist.append(['Name','TTV','Tickets'])
+    mylist.append(['Name', 'TTV', 'Tickets'])
 
-
-    showsList =[]
+    showsList = []
     for k,v in showsDict.items():
         ttv = [item[0] for item in v]
         tickets = [item[1] for item in v]
         # print k,ttv
-        showsList.append([k,"%.2f" % round(sum(ttv),2),sum(tickets)])
-        #wr.writerow((k,("%.2f" % round(sum(ttv),2)),sum(tickets)))
+        showsList.append([k, "%.2f" % round(sum(ttv), 2), sum(tickets)])
+        # wr.writerow((k,("%.2f" % round(sum(ttv),2)),sum(tickets)))
 
     sortedList = sorted(showsList, key=itemgetter(2), reverse=True)
     for i in sortedList:
@@ -233,3 +231,31 @@ def create_docs(mylist, filename, total_gtv, total_transactions, total_tickets, 
     sheets.main(mylist)
 
 
+# def create_show_doc(mylist, filename, total_gtv, total_transactions, total_tickets, meal_deals, total_commission, total_bookingFee, vat, showsDict, startDate, endDate):
+#     myfile = open(filename, 'wb')
+#     wr = csv.writer(myfile, quoting=csv.QUOTE_ALL)
+#     print(mylist)
+#
+#     mylist.append([''])
+#     mylist.append([''])
+#     mylist.append(['Name', 'TTV', 'Tickets'])
+#
+#
+#     showsList =[]
+#     for k,v in showsDict.items():
+#         ttv = [item[0] for item in v]
+#         tickets = [item[1] for item in v]
+#         # print k,ttv
+#         showsList.append([k,"%.2f" % round(sum(ttv),2),sum(tickets)])
+#         #wr.writerow((k,("%.2f" % round(sum(ttv),2)),sum(tickets)))
+#
+#     sortedList = sorted(showsList, key=itemgetter(2), reverse=True)
+#     for i in sortedList:
+#         mylist.append(i)
+#
+#     for i in mylist:
+#         wr.writerow(i)
+#
+#     sheets.main(mylist)
+#
+# create_show_doc()

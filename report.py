@@ -47,11 +47,8 @@ def ls_summary():
 
 
 def sales_by_show():
-    mainList = monga.mongo_call("2016-08-03", "2016-08-04")
+    mainList = monga.mongo_call("2016-08-01", "2016-08-04")
     monga.create_docs(mainList[0], mainList[1], mainList[2], mainList[3], mainList[4], mainList[5], mainList[6], mainList[7], mainList[8], mainList[9], mainList[10], mainList[11])
-
-# ls_summary()
-# sales_by_show()
 
 
 def hourly_heatmap():
@@ -88,6 +85,22 @@ def show_sales():
     print("Total Tickets:" + str(sum(tickets)))
 
 
+# def show_sales_report():
+#     mainList = monga.mongo_call("2016-08-03", "2016-08-04")
+#     showD = mainList[9]
+#     showX = input('Enter the show (must be precise): ')
+#     v = showD[showX]
+#     gtv = [item[0] for item in v]
+#     tickets = [item[1] for item in v]
+#     monga.create_docs(mainList[0], mainList[1], mainList[2], mainList[3], mainList[4], mainList[5], mainList[6],
+#                       mainList[7], mainList[8], showD[showX], mainList[10], mainList[11])
+#     print("Show: " + str(showX))
+#     print("Total GTV:" + str(sum(gtv)))
+#     print("Total Tickets:" + str(sum(tickets)))
+#
+# def create_show_report():
+
+
 def show_of_the_month():
     mainList = monga.mongo_call("2016-08-01", "2016-08-31")
     showD = mainList[9]
@@ -102,7 +115,7 @@ def show_of_the_month():
 
 def choose_report():
     # input = raw_input
-    userChoice = int(input('Choose a report: /n (1) summary (2) sales by show (3) hourly (4) today (5) quick check (6) show spot (7) SOTM '))
+    userChoice = int(input('Choose a report: /n (1) summary (2) sales by show (3) hourly (4) today (5) quick check (6) show spot (7) SOTM (8) show report '))
     if userChoice == 1:
         ls_summary()
     if userChoice == 2:
@@ -117,6 +130,7 @@ def choose_report():
         show_sales()
     if userChoice == 7:
         show_of_the_month()
-
+    # if userChoice == 8:
+    #     show_sales_report()
 
 choose_report()
