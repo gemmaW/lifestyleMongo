@@ -92,7 +92,7 @@ def mongo_call(startDate, endDate):
     total_transactions = 0
     meal_deals = 0
     total_tickets = 0
-    mylist = [['ID', 'Date', 'Performance', 'Total Price', 'Booking Fee', 'Commission Amount', 'Margin %', 'No of Tickets', 'Meal Deal', 'Restaurant Price PP', 'Discounts', 'Platform', 'Restoration Levy', 'Supplier', 'User Agent', 'Referrer', 'Supplier Key', 'ENTA Reference', 'Performance Date & Time', 'Supplier Group']]
+    mylist = [['ID', 'Date', 'Performance', 'Total Price', 'Booking Fee', 'Commission Amount', 'Margin %', 'No of Tickets', 'Meal Deal', 'Restaurant Price PP', 'Discounts', 'Platform', 'Restoration Levy', 'Venue', 'User Agent', 'Referrer', 'Supplier Key', 'ENTA Reference', 'Performance Date & Time', 'Supplier Group']]
     filename = 'sales_' + my_start_str[:10] + '_' + my_end_str[:10] + '.csv'
 
 
