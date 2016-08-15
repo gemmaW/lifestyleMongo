@@ -164,6 +164,36 @@ def mongo_call(startDate, endDate):
         except:
             supplier = ""
 
+        try:
+            supplierKey = j["financeData"]["supplier"]["supplierKey"]
+        except:
+            supplierKey = ""
+
+        try:
+            entaRef = j["financeData"]["bookingReference"]
+        except:
+            entaRef = ""
+
+        try:
+            perfYear = j["performance"]["startDate"]["date"]["year"]
+        except:
+            perfYear = ""
+
+        try:
+            perfMonth = j["performance"]["startDate"]["date"]["month"]
+        except:
+            perfMonth = ""
+
+        try:
+            perfDay = j["performance"]["startDate"]["date"]["day"]
+        except:
+            perfDay = ""
+
+        # try:
+        #     perfTime = j["performance"]["startDate"]["time"]
+        # except:
+        #     perfTime = ""
+
         times = (str(x.isoLastModifiedDateTime[total_transactions])).split(":")
         donetime = times[0] + ":" + times[1]
 
@@ -179,7 +209,7 @@ def mongo_call(startDate, endDate):
         timeString = londonTime.strftime('%Y-%m-%d %H:%M')
 
         # print x.orderId[total_transactions], x.isoLastModifiedDateTime[total_transactions].strftime("%Y-%m-%d %H:%M"), j["performance"]["name"], float(j["displayPrices"]["grandTotal"]), int(j["tickets"][0]["quantity"]), md, restaurantPPP, promoMessage, j["financeData"]["productSourceSystem"]
-        mylist.append([str(x.orderId[total_transactions]), timeString, j["performance"]["name"], float(j["displayPrices"]["grandTotal"]), bookingFee, commission, margin, int(j["tickets"][0]["quantity"]), md, restaurantPPP, promoMessage, j["financeData"]["productSourceSystem"], restorationLevy, supplier, agent, referer])
+        mylist.append([str(x.orderId[total_transactions]), timeString, j["performance"]["name"], float(j["displayPrices"]["grandTotal"]), bookingFee, commission, margin, int(j["tickets"][0]["quantity"]), md, restaurantPPP, promoMessage, j["financeData"]["productSourceSystem"], restorationLevy, supplier, agent, referer, supplierKey, entaRef, perfYear, perfMonth, perfDay])
         # print j['displayPrices']
         # print float(j["displayPrices"]["grandTotal"])
         total_transactions += 1
@@ -231,31 +261,26 @@ def create_docs(mylist, filename, total_gtv, total_transactions, total_tickets, 
     sheets.main(mylist)
 
 
-# def create_show_doc(mylist, filename, total_gtv, total_transactions, total_tickets, meal_deals, total_commission, total_bookingFee, vat, showsDict, startDate, endDate):
-#     myfile = open(filename, 'wb')
-#     wr = csv.writer(myfile, quoting=csv.QUOTE_ALL)
-#     print(mylist)
-#
-#     mylist.append([''])
-#     mylist.append([''])
-#     mylist.append(['Name', 'TTV', 'Tickets'])
-#
-#
-#     showsList =[]
-#     for k,v in showsDict.items():
-#         ttv = [item[0] for item in v]
-#         tickets = [item[1] for item in v]
-#         # print k,ttv
-#         showsList.append([k,"%.2f" % round(sum(ttv),2),sum(tickets)])
-#         #wr.writerow((k,("%.2f" % round(sum(ttv),2)),sum(tickets)))
-#
-#     sortedList = sorted(showsList, key=itemgetter(2), reverse=True)
-#     for i in sortedList:
-#         mylist.append(i)
-#
-#     for i in mylist:
-#         wr.writerow(i)
-#
-#     sheets.main(mylist)
-#
-# create_show_doc()
+def create_finance(mylist, filename, total_gtv, total_transactions, total_tickets, meal_deals, total_commission, total_bookingFee, vat, showsDict, startDate, endDate):
+    myfile = open(filename, 'wb')
+    wr = csv.writer(myfile, quoting=csv.QUOTE_ALL)
+    mylist.append([''])
+    mylist.append([''])
+    mylist.append(['Name', 'TTV', 'Tickets'])
+
+    showsList = []
+    for k,v in showsDict.items():
+        ttv = [item[0] for item in v]
+        tickets = [item[1] for item in v]
+        # print k,ttv
+        showsList.append([k, "%.2f" % round(sum(ttv), 2), sum(tickets)])
+        # wr.writerow((k,("%.2f" % round(sum(ttv),2)),sum(tickets)))
+
+    sortedList = sorted(showsList, key=itemgetter(2), reverse=True)
+    for i in sortedList:
+        mylist.append(i)
+
+    for i in mylist:
+        wr.writerow(i)
+
+    sheets.main(mylist)
