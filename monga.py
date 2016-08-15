@@ -92,7 +92,7 @@ def mongo_call(startDate, endDate):
     total_transactions = 0
     meal_deals = 0
     total_tickets = 0
-    mylist = [['ID', 'Date', 'Performance', 'Total Price', 'Booking Fee', 'Commission Amount', 'Margin %', 'No of Tickets', 'Meal Deal', 'Restaurant Price PP', 'Discounts', 'Platform', 'Restoration Levy', 'Supplier', 'User Agent', 'Referrer']]
+    mylist = [['ID', 'Date', 'Performance', 'Total Price', 'Booking Fee', 'Commission Amount', 'Margin %', 'No of Tickets', 'Meal Deal', 'Restaurant Price PP', 'Discounts', 'Platform', 'Restoration Levy', 'Supplier', 'User Agent', 'Referrer', 'Supplier Key', 'ENTA Reference', 'Performance Date & Time']]
     filename = 'sales_' + my_start_str[:10] + '_' + my_end_str[:10] + '.csv'
 
 
@@ -216,7 +216,7 @@ def mongo_call(startDate, endDate):
         timeString = londonTime.strftime('%Y-%m-%d %H:%M')
 
         # print x.orderId[total_transactions], x.isoLastModifiedDateTime[total_transactions].strftime("%Y-%m-%d %H:%M"), j["performance"]["name"], float(j["displayPrices"]["grandTotal"]), int(j["tickets"][0]["quantity"]), md, restaurantPPP, promoMessage, j["financeData"]["productSourceSystem"]
-        mylist.append([str(x.orderId[total_transactions]), timeString, j["performance"]["name"], float(j["displayPrices"]["grandTotal"]), bookingFee, commission, margin, int(j["tickets"][0]["quantity"]), md, restaurantPPP, promoMessage, j["financeData"]["productSourceSystem"], restorationLevy, supplier, agent, referer, supplierKey, entaRef, perfYear, perfMonth, perfDay, perfHour, perfMin, perfDateG])
+        mylist.append([str(x.orderId[total_transactions]), timeString, j["performance"]["name"], float(j["displayPrices"]["grandTotal"]), bookingFee, commission, margin, int(j["tickets"][0]["quantity"]), md, restaurantPPP, promoMessage, j["financeData"]["productSourceSystem"], restorationLevy, supplier, agent, referer, supplierKey, entaRef, perfDateG])
         # print j['displayPrices']
         # print float(j["displayPrices"]["grandTotal"])
         total_transactions += 1
