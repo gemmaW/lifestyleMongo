@@ -110,14 +110,6 @@ def fringe():
     print("Total Tickets:" + str(sum(tickets)))
 
 
-# def twenty4_sale():
-#     listOne = monga.mongo_call("2016-08-15, 2016-08-16")
-#     showD = listOne[9]
-#     showOne = "Sunny Afternoon"
-#     d1 = showD[showOne]
-#
-
-
 def sunny_afternoon():
     mainList = monga.mongo_call("2016-08-15", "2016-08-16")
     showD = mainList[9]
@@ -238,25 +230,55 @@ def funny_girl():
     print("Total Tickets:" + str(sum(tickets)))
 
 
-# def mega_friday():
-#     mainList = monga.mongo_call("2016-08-16", "2016-08-26")
-#     showD = mainList[9]
-#     saleShowOne = "Funny Girl"
-#     g = showD[saleShowOne]
-#     gtv1 = [item[0] for item in g]
-#     tickets1 = [item[1] for item in g]
-#     print("Mega Friday: All shows from the fortnight")
-#     # print("Show Update: " + str(saleShowOne))
-#     print("Total GTV:" + str(sum(gtv1)))
-#     print("Total Tickets:" + str(sum(tickets1)))
-#     saleShowTwo = "Sunny Afternoon"
-#     g = showD[saleShowTwo]
-#     gtv2 = [item[0] for item in g]
-#     tickets2 = [item[1] for item in g]
-#     # print("Show Update: " + str(saleShowTwo))
-#     print("Total GTV:" + str(sum(gtv2)))
-#     print("Total Tickets:" + str(sum(tickets2)))
-#     print("All GTV:" + float(sum(gtv1)(gtv2)))
+def mega_friday():
+    mainList = monga.mongo_call("2016-08-26", "2016-08-26")
+    showD = mainList[9]
+    saleShowOne = "Sunny Afternoon"
+    g = showD[saleShowOne]
+    gtv1 = [item[0] for item in g]
+    tickets1 = [item[1] for item in g]
+    saleShowTwo = "1984 The Play"
+    g = showD[saleShowTwo]
+    gtv2 = [item[0] for item in g]
+    tickets2 = [item[1] for item in g]
+    saleShowThree = "Hobson's Choice"
+    g = showD[saleShowThree]
+    gtv3 = [item[0] for item in g]
+    tickets3 = [item[1] for item in g]
+    saleShowFour = "American Idiot"
+    g = showD[saleShowFour]
+    gtv4 = [item[0] for item in g]
+    tickets4 = [item[1] for item in g]
+    saleShowFive = "The Go-Between"
+    g = showD[saleShowFive]
+    gtv5 = [item[0] for item in g]
+    tickets5 = [item[1] for item in g]
+    saleShowSix = "Sunny Afternoon"
+    g = showD[saleShowSix]
+    gtv6 = [item[0] for item in g]
+    tickets6 = [item[1] for item in g]
+    saleShowSeven = "The Woman In Black"
+    g = showD[saleShowSeven]
+    gtv7 = [item[0] for item in g]
+    tickets7 = [item[1] for item in g]
+    saleShowEight = "Jersey Boys"
+    g = showD[saleShowEight]
+    gtv8 = [item[0] for item in g]
+    tickets8 = [item[1] for item in g]
+    saleShowNine = "How the Other Half Loves"
+    g = showD[saleShowNine]
+    gtv9 = [item[0] for item in g]
+    tickets9 = [item[1] for item in g]
+    saleShowTen = "Funny Girl"
+    g = showD[saleShowTen]
+    gtv10 = [item[0] for item in g]
+    tickets10 = [item[1] for item in g]
+    print("Mega Friday: GTV for all shows from the fortnight: £" + str(sum(gtv1+gtv2+gtv3+gtv4+gtv5+gtv6+gtv7+gtv8+gtv9
+                                                                           +gtv10)))
+    print("Mega Friday: Tickets for all shows from the fortnight: " + str(sum(tickets1+tickets2+tickets3+tickets4+tickets5
+                                                                            +tickets6+tickets7+tickets8+tickets9+
+                                                                            tickets10)))
+
 
 def bi_monthly_finance():
     mainList = monga.mongo_call("2016-08-15", "2016-08-16")
@@ -309,8 +331,8 @@ def choose_report():
         other_half()
     if userChoice == 19:
         funny_girl()
-    # if userChoice == 20:
-    #     mega_friday()
+    if userChoice == 20:
+        mega_friday()
 
 
 choose_report()
