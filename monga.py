@@ -324,4 +324,4 @@ def create_finance(mylist, filename, total_gtv, total_transactions, total_ticket
     for i in mylist:
         wr.writerow(i)
 
-    sheets.main(mylist)
+    sheets.main_finance(mylist)
