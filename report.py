@@ -47,7 +47,7 @@ def ls_summary():
 
 
 def sales_by_show():
-    mainList = monga.mongo_call("2016-08-15", "2016-08-15")
+    mainList = monga.mongo_call("2016-08-15", "2016-08-16")
     monga.create_docs(mainList[0], mainList[1], mainList[2], mainList[3], mainList[4], mainList[5], mainList[6],
                       mainList[7], mainList[8], mainList[9], mainList[10], mainList[11])
 
@@ -253,7 +253,7 @@ def mega_friday():
     g = showD[saleShowFive]
     gtv5 = [item[0] for item in g]
     tickets5 = [item[1] for item in g]
-    saleShowSix = "Sunny Afternoon"
+    saleShowSix = "The Truth"
     g = showD[saleShowSix]
     gtv6 = [item[0] for item in g]
     tickets6 = [item[1] for item in g]
@@ -273,11 +273,11 @@ def mega_friday():
     g = showD[saleShowTen]
     gtv10 = [item[0] for item in g]
     tickets10 = [item[1] for item in g]
-    print("Mega Friday: GTV for all shows from the fortnight: £" + str(sum(gtv1+gtv2+gtv3+gtv4+gtv5+gtv6+gtv7+gtv8+gtv9
-                                                                           +gtv10)))
-    print("Mega Friday: Tickets for all shows from the fortnight: " + str(sum(tickets1+tickets2+tickets3+tickets4+tickets5
-                                                                            +tickets6+tickets7+tickets8+tickets9+
-                                                                            tickets10)))
+    print("Mega Friday: GTV for all shows from the fortnight: £" + str(sum(gtv1+gtv2+gtv3+gtv4+gtv5+gtv6+gtv7+gtv8+gtv9+
+                                                                           gtv10)))
+    print("Mega Friday: Tickets for all shows from the fortnight: " + str(sum(tickets1+tickets2+tickets3+tickets4+
+                                                                              tickets5+tickets6+tickets7+tickets8+
+                                                                              tickets9+tickets10)))
 
 
 def bi_monthly_finance():
