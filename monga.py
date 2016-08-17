@@ -76,7 +76,8 @@ def mongo_call(startDate, endDate):
     my_start_str = startDate + "T00:00:00"
     my_end_str = endDate + "T23:59:59"
 
-    x = read_mongo(my_start_str, my_end_str, 'lifestyle-checkout', 'basket', { "orderId" : 600460597 }, '10.10.20.153', 27017, 'reportsUser', 'ch*ckoUt20*6', True)
+    x = read_mongo(my_start_str, my_end_str, 'lifestyle-checkout', 'basket', { "orderId" : 600460597 }, '10.10.20.153',
+                   27017, 'reportsUser', 'ch*ckoUt20*6', True)
 
     x.to_csv("mongo_dump.csv", sep='\t', encoding='utf-8')
 
@@ -92,7 +93,10 @@ def mongo_call(startDate, endDate):
     total_transactions = 0
     meal_deals = 0
     total_tickets = 0
-    mylist = [['ID', 'Date', 'Performance', 'Total Price', 'Booking Fee', 'Commission Amount', 'Margin %', 'No of Tickets', 'Meal Deal', 'Restaurant Price PP', 'Discounts', 'Platform', 'Restoration Levy', 'Venue', 'User Agent', 'Referrer', 'Supplier Key', 'ENTA Reference', 'Performance Date & Time', 'Supplier Group', 'Price Per Ticket', 'Restaurant Name', 'Restaurant Code']]
+    mylist = [['ID', 'Date', 'Performance', 'Total Price', 'Booking Fee', 'Commission Amount', 'Margin %',
+               'No of Tickets', 'Meal Deal', 'Restaurant Price PP', 'Discounts', 'Platform', 'Restoration Levy',
+               'Venue', 'User Agent', 'Referrer', 'Supplier Key', 'ENTA Reference', 'Performance Date & Time',
+               'Supplier Group', 'Price Per Ticket', 'Restaurant Name', 'Restaurant Code']]
     filename = 'sales_' + my_start_str[:10] + '_' + my_end_str[:10] + '.csv'
 
 
@@ -235,8 +239,15 @@ def mongo_call(startDate, endDate):
         londonTime = utc.astimezone(to_zone)
         timeString = londonTime.strftime('%Y-%m-%d %H:%M')
 
-        # print x.orderId[total_transactions], x.isoLastModifiedDateTime[total_transactions].strftime("%Y-%m-%d %H:%M"), j["performance"]["name"], float(j["displayPrices"]["grandTotal"]), int(j["tickets"][0]["quantity"]), md, restaurantPPP, promoMessage, j["financeData"]["productSourceSystem"]
-        mylist.append([str(x.orderId[total_transactions]), timeString, j["performance"]["name"], float(j["displayPrices"]["grandTotal"]), bookingFee, commission, margin, int(j["tickets"][0]["quantity"]), md, restaurantPPP, promoMessage, j["financeData"]["productSourceSystem"], restorationLevy, supplier, agent, referer, supplierKey, entaRef, perfDateG, officeCode, pricePerTkt, restaurantName, restaurantId])
+        # print x.orderId[total_transactions], x.isoLastModifiedDateTime[total_transactions].strftime("%Y-%m-%d %H:%M"),
+        # j["performance"]["name"], float(j["displayPrices"]["grandTotal"]), int(j["tickets"][0]["quantity"]), md,
+        # restaurantPPP, promoMessage, j["financeData"]["productSourceSystem"]
+        mylist.append([str(x.orderId[total_transactions]), timeString, j["performance"]["name"],
+                       float(j["displayPrices"]["grandTotal"]), bookingFee, commission, margin, int(j["tickets"][0]
+                                                                                                    ["quantity"]), md,
+                       restaurantPPP, promoMessage, j["financeData"]["productSourceSystem"], restorationLevy, supplier,
+                       agent, referer, supplierKey, entaRef, perfDateG, officeCode, pricePerTkt, restaurantName,
+                       restaurantId])
         # print j['displayPrices']
         # print float(j["displayPrices"]["grandTotal"])
         total_transactions += 1
@@ -245,11 +256,13 @@ def mongo_call(startDate, endDate):
         total_commission = round(total_commission + commission,2)
         total_bookingFee = total_bookingFee + bookingFee
 
-    data_packet = [mylist, filename, total_gtv, total_transactions, total_tickets, meal_deals, total_commission, total_bookingFee, vat, showsDict, startDate, endDate]
+    data_packet = [mylist, filename, total_gtv, total_transactions, total_tickets, meal_deals, total_commission,
+                   total_bookingFee, vat, showsDict, startDate, endDate]
     return data_packet
 
 
-def create_docs(mylist, filename, total_gtv, total_transactions, total_tickets, meal_deals, total_commission, total_bookingFee, vat, showsDict, startDate, endDate):
+def create_docs(mylist, filename, total_gtv, total_transactions, total_tickets, meal_deals, total_commission,
+                total_bookingFee, vat, showsDict, startDate, endDate):
     myfile = open(filename, 'wb')
     wr = csv.writer(myfile, quoting=csv.QUOTE_ALL)
     print(mylist)
@@ -288,7 +301,8 @@ def create_docs(mylist, filename, total_gtv, total_transactions, total_tickets, 
     sheets.main(mylist)
 
 
-def create_finance(mylist, filename, total_gtv, total_transactions, total_tickets, meal_deals, total_commission, total_bookingFee, vat, showsDict, startDate, endDate):
+def create_finance(mylist, filename, total_gtv, total_transactions, total_tickets, meal_deals, total_commission,
+                   total_bookingFee, vat, showsDict, startDate, endDate):
     myfile = open(filename, 'wb')
     wr = csv.writer(myfile, quoting=csv.QUOTE_ALL)
     mylist.append([''])
