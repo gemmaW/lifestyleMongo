@@ -223,6 +223,11 @@ def mongo_call(startDate, endDate):
         except:
             restaurantId = ""
 
+        # try:
+        #     pric = j["restaurant"]["restaurantId"]
+        # except:
+        #     restaurantId = ""
+
         perfDateG = perfYear + "-" + perfMonth + "-" + perfDay + " " + perfHour + ":" + perfMin
 
         times = (str(x.isoLastModifiedDateTime[total_transactions])).split(":")
