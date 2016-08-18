@@ -96,7 +96,7 @@ def mongo_call(startDate, endDate):
     mylist = [['ID', 'Date', 'Performance', 'Total Price', 'Booking Fee', 'Commission Amount', 'Margin %',
                'No of Tickets', 'Meal Deal', 'Restaurant Price PP', 'Discounts', 'Platform', 'Restoration Levy',
                'Venue', 'User Agent', 'Referrer', 'Supplier Key', 'ENTA Reference', 'Performance Date & Time',
-               'Supplier Group', 'Price Per Ticket', 'Restaurant Name', 'Restaurant Code']]
+               'Supplier Group', 'Price Per Ticket', 'Restaurant Name', 'Show ID']]
     filename = 'sales_' + my_start_str[:10] + '_' + my_end_str[:10] + '.csv'
 
 
@@ -219,14 +219,9 @@ def mongo_call(startDate, endDate):
             restaurantName = ""
 
         try:
-            restaurantId = j["restaurant"]["restaurantId"]
+            perfId = j["performance"]["_id"]
         except:
-            restaurantId = ""
-
-        # try:
-        #     pric = j["restaurant"]["restaurantId"]
-        # except:
-        #     restaurantId = ""
+            perfId = ""
 
         perfDateG = perfYear + "-" + perfMonth + "-" + perfDay + " " + perfHour + ":" + perfMin
 
@@ -252,7 +247,7 @@ def mongo_call(startDate, endDate):
                                                                                                     ["quantity"]), md,
                        restaurantPPP, promoMessage, j["financeData"]["productSourceSystem"], restorationLevy, supplier,
                        agent, referer, supplierKey, entaRef, perfDateG, officeCode, pricePerTkt, restaurantName,
-                       restaurantId])
+                       perfId])
         # print j['displayPrices']
         # print float(j["displayPrices"]["grandTotal"])
         total_transactions += 1

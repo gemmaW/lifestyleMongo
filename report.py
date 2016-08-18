@@ -47,7 +47,7 @@ def ls_summary():
 
 
 def sales_by_show():
-    mainList = monga.mongo_call("2016-08-01", "2016-08-17")
+    mainList = monga.mongo_call("2016-08-17", "2016-08-18")
     monga.create_docs(mainList[0], mainList[1], mainList[2], mainList[3], mainList[4], mainList[5], mainList[6],
                       mainList[7], mainList[8], mainList[9], mainList[10], mainList[11])
 
@@ -135,7 +135,7 @@ def nineteen84_the_play():
 
 
 def hobsons_choice():
-    mainList = monga.mongo_call("2016-08-18", "2016-08-18")
+    mainList = monga.mongo_call("2016-08-17", "2016-08-18")
     showD = mainList[9]
     saleShow = "Hobson's Choice"
     g = showD[saleShow]
@@ -230,6 +230,17 @@ def funny_girl():
     print("Total Tickets:" + str(sum(tickets)))
 
 
+def days_out():
+    mainList = monga.mongo_call("2016-08-17", "2016-08-17")
+    daysOutId = mainList[0]
+    daysOutShow = "630"
+    g = daysOutId[daysOutShow]
+    gtv = [item[0] for item in g]
+    tickets = [item[1] for item in g]
+    monga.create_docs(mainList[0], mainList[1], mainList[2], mainList[3], mainList[4], mainList[5], mainList[6],
+                      mainList[7], mainList[8], mainList[9], mainList[10], mainList[11])
+
+
 def mega_friday():
     mainList = monga.mongo_call("2016-08-26", "2016-08-26")
     showD = mainList[9]
@@ -292,7 +303,7 @@ def choose_report():
                            '(6) show spot (7) SOTM (8) Bi-Monthly Finance (9) Fringe (10) Sunny Afternoon (11) 1984 '
                            '(12) Hobsons Choice (13) American Idiot (14) Go-Between (15) The Truth '
                            '(16) Woman in Black (17) Jersey Boys (18) Other Half Loves (19) Funny Girl '
-                           '(20) Mega Friday '))
+                           '(20) Mega Friday (21) Days Out '))
     if userChoice == 1:
         ls_summary()
     if userChoice == 2:
@@ -333,6 +344,8 @@ def choose_report():
         funny_girl()
     if userChoice == 20:
         mega_friday()
+    if userChoice == 21:
+        days_out()
 
 
 choose_report()
