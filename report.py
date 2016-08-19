@@ -42,7 +42,7 @@ def ls_summary():
 
 
 def sales_by_show():
-    mainList = monga.mongo_call("2016-08-01", "2016-08-19")
+    mainList = monga.mongo_call("2016-08-18", "2016-08-19")
     monga.create_docs(mainList[0], mainList[1], mainList[2], mainList[3], mainList[4], mainList[5], mainList[6],
                       mainList[7], mainList[8], mainList[9], mainList[10], mainList[11])
 
@@ -62,7 +62,7 @@ def today_sales():
 
 
 def quick_sales():
-    mainList = monga.mongo_call("2016-08-08", "2016-08-15")
+    mainList = monga.mongo_call("2016-08-15", "2016-08-19")
     print("Total GTV: " + (str(mainList[2])))
     print("Total Bookings:" + (str(mainList[3])))
     print("Total Tickets:" + (str(mainList[4])))

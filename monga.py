@@ -9,7 +9,8 @@ import newSheets
 from datetime import datetime, timedelta, date
 import plotGraph
 from dateutil import tz
-
+import numpy
+import glob
 
 
 def _connect_mongo(host, port, username, password, db):
@@ -132,6 +133,25 @@ def mongo_call(startDate, endDate):
             md = "False"
             restaurantPPP = "False"
         try:
+            restaurantName = j["restaurant"]["name"]
+        except:
+            restaurantName = ""
+
+        # for f in glob.glob("*.csv"):
+        #     print(f)
+        #     r = numpy.recfromcsv(f)
+        #     print(numpy.interp(restaurantName, r.SupplierC, r.RestaurantN))
+        #
+        f = open('restaurant supplier codes from ENTA.csv', 'rb')
+        csv_f = csv.reader(f)
+        # print(yesd.strftime("%d/%m/%Y"))
+        for row in csv_f:
+            try:
+                row[0] == restaurantName
+                restSupCode = row[1]
+            except:
+                restSupCode = ""
+        try:
             promoMessage = j["tickets"][0]["discounts"][0]
         except:
             promoMessage = ""
@@ -152,77 +172,58 @@ def mongo_call(startDate, endDate):
             commission = 0
             bookingFee = 0
             margin = 0
-
         try:
             referer = j["originSource"]["referer"]
         except:
             referer = ""
-
         try:
             agent = j["originSource"]["userAgent"]
         except:
             agent = ""
-
         try:
             supplier = j["financeData"]["supplier"]["supplierName"]
         except:
             supplier = ""
-
         try:
             supplierKey = j["financeData"]["supplier"]["supplierKey"]
         except:
             supplierKey = ""
-
         try:
             entaRef = j["financeData"]["bookingReference"]
         except:
             entaRef = ""
-
         try:
             perfYear = str(j["performance"]["startDate"]["date"]["year"])
         except:
             perfYear = ""
-
         try:
             perfMonth = str(j["performance"]["startDate"]["date"]["month"])
         except:
             perfMonth = ""
-
         try:
             perfDay = str(j["performance"]["startDate"]["date"]["day"])
         except:
             perfDay = ""
-
         try:
             perfHour = str(j["performance"]["startDate"]["time"]["hour"])
         except:
             perfHour = ""
-
         try:
             perfMin = str(j["performance"]["startDate"]["time"]["minute"])
         except:
             perfMin = ""
-
         try:
             officeCode = j["financeData"]["officeCode"]
         except:
             officeCode = ""
-
         try:
             pricePerTkt = j["displayPrices"]["pricePerTicket"]
         except:
             pricePerTkt = ""
-
-        try:
-            restaurantName = j["restaurant"]["name"]
-        except:
-            restaurantName = ""
-
         try:
             perfId = j["performance"]["_id"]
         except:
             perfId = ""
-
         perfDateG = perfYear + "-" + perfMonth + "-" + perfDay + " " + perfHour + ":" + perfMin
 
         times = (str(x.isoLastModifiedDateTime[total_transactions])).split(":")
@@ -247,7 +248,7 @@ def mongo_call(startDate, endDate):
                                                                                                     ["quantity"]), md,
                        restaurantPPP, promoMessage, j["financeData"]["productSourceSystem"], restorationLevy, supplier,
                        agent, referer, supplierKey, entaRef, perfDateG, officeCode, pricePerTkt, restaurantName,
-                       perfId])
+                       perfId, restSupCode])
         # print j['displayPrices']
         # print float(j["displayPrices"]["grandTotal"])
         total_transactions += 1
