@@ -16,11 +16,6 @@ def daterange(start_date, end_date):
         yield start_date + timedelta(n)
 
 
-# def show_report():
-#     mainList = monga.mongo_call("2016-07-25", "2016-07-25")
-#     monga.create_docs(mainList[0], mainList[1], mainList[2], mainList[3], mainList[4], mainList[5], mainList[6], mainList[7], mainList[8], mainList[9], mainList[10], mainList[11])
-
-
 def ls_summary():
     startDate = datetime.datetime.strptime("2016,08,08", "%Y,%m,%d")
     endDate = datetime.datetime.strptime("2016,08,15", "%Y,%m,%d")
@@ -47,7 +42,7 @@ def ls_summary():
 
 
 def sales_by_show():
-    mainList = monga.mongo_call("2016-08-17", "2016-08-18")
+    mainList = monga.mongo_call("2016-08-01", "2016-08-19")
     monga.create_docs(mainList[0], mainList[1], mainList[2], mainList[3], mainList[4], mainList[5], mainList[6],
                       mainList[7], mainList[8], mainList[9], mainList[10], mainList[11])
 
@@ -111,7 +106,7 @@ def fringe():
 
 
 def sunny_afternoon():
-    mainList = monga.mongo_call("2016-08-15", "2016-08-16")
+    mainList = monga.mongo_call("2016-08-17", "2016-08-19")
     showD = mainList[9]
     saleShow = "Sunny Afternoon"
     g = showD[saleShow]
