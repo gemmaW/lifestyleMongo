@@ -97,7 +97,7 @@ def mongo_call(startDate, endDate):
     mylist = [['ID', 'Date', 'Performance', 'Total Price', 'Booking Fee', 'Commission Amount', 'Margin %',
                'No of Tickets', 'Meal Deal', 'Restaurant Price PP', 'Discounts', 'Platform', 'Restoration Levy',
                'Venue', 'User Agent', 'Referrer', 'Supplier Key', 'ENTA Reference', 'Performance Date & Time',
-               'Supplier Group', 'Price Per Ticket', 'Restaurant Name', 'Show ID']]
+               'Supplier Group', 'Price Per Ticket', 'Restaurant Name', 'Show ID', 'Restaurant Supplier Code']]
     filename = 'sales_' + my_start_str[:10] + '_' + my_end_str[:10] + '.csv'
 
 
