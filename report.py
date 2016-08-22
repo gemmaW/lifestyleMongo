@@ -17,8 +17,8 @@ def daterange(start_date, end_date):
 
 
 def ls_summary():
-    startDate = datetime.datetime.strptime("2016,08,08", "%Y,%m,%d")
-    endDate = datetime.datetime.strptime("2016,08,15", "%Y,%m,%d")
+    startDate = datetime.datetime.strptime("2016,08,15", "%Y,%m,%d")
+    endDate = datetime.datetime.strptime("2016,08,22", "%Y,%m,%d")
 
     # start_date = date(2016, 7, 16)
     # end_date = date(2016, 7, 18)
@@ -42,13 +42,13 @@ def ls_summary():
 
 
 def sales_by_show():
-    mainList = monga.mongo_call("2016-08-18", "2016-08-19")
+    mainList = monga.mongo_call("2016-08-15", "2016-08-21")
     monga.create_docs(mainList[0], mainList[1], mainList[2], mainList[3], mainList[4], mainList[5], mainList[6],
                       mainList[7], mainList[8], mainList[9], mainList[10], mainList[11])
 
 
 def hourly_heatmap():
-    mainList = monga.mongo_call("2016-08-08", "2016-08-14")
+    mainList = monga.mongo_call("2016-08-15", "2016-08-21")
     plotGraph.hourly_heat(mainList[0][1:])
 
 
@@ -62,7 +62,7 @@ def today_sales():
 
 
 def quick_sales():
-    mainList = monga.mongo_call("2016-08-15", "2016-08-19")
+    mainList = monga.mongo_call("2016-08-15", "2016-08-21")
     print("Total GTV: " + (str(mainList[2])))
     print("Total Bookings:" + (str(mainList[3])))
     print("Total Tickets:" + (str(mainList[4])))

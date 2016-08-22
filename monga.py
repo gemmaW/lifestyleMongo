@@ -144,7 +144,6 @@ def mongo_call(startDate, endDate):
         #
         f = open('restaurant supplier codes from ENTA.csv', 'rb')
         csv_f = csv.reader(f)
-        # print(yesd.strftime("%d/%m/%Y"))
         for row in csv_f:
             try:
                 row[0] == restaurantName
