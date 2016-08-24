@@ -97,7 +97,7 @@ def mongo_call(startDate, endDate):
     mylist = [['ID', 'Date', 'Performance', 'Total Price', 'Booking Fee', 'Commission Amount', 'Margin %',
                'No of Tickets', 'Meal Deal', 'Restaurant Price PP', 'Discounts', 'Platform', 'Restoration Levy',
                'Venue', 'User Agent', 'Referrer', 'Supplier Key', 'ENTA Reference', 'Performance Date & Time',
-               'Supplier Group', 'Price Per Ticket', 'Restaurant Name', 'Show ID', 'Restaurant Supplier Code']]
+               'Supplier Group', 'Price Per Ticket', 'Restaurant Name', 'Show ID', 'Restaurant Supplier Code', 'Email']]
     filename = 'sales_' + my_start_str[:10] + '_' + my_end_str[:10] + '.csv'
 
 
@@ -223,6 +223,7 @@ def mongo_call(startDate, endDate):
             perfId = j["performance"]["_id"]
         except:
             perfId = ""
+
         perfDateG = perfYear + "-" + perfMonth + "-" + perfDay + " " + perfHour + ":" + perfMin
 
         times = (str(x.isoLastModifiedDateTime[total_transactions])).split(":")
@@ -325,3 +326,32 @@ def create_finance(mylist, filename, total_gtv, total_transactions, total_ticket
         wr.writerow(i)
 
     sheets.main_finance(mylist)
+
+
+def email_addresses():
+    my_start_str = "2016-07-12T00:00:00Z"
+    my_end_str = "2016-07-12T23:59:59Z"
+
+    x = read_mongo(my_start_str, my_end_str, 'lifestyle-checkout', 'basket', { "orderId" : 600460597 }, '10.10.20.153',
+                   27017, 'reportsUser', 'ch*ckoUt20*6', True)
+
+    customerDetails = x.customerDetails.values
+
+    customerList = []
+
+    for item in customerDetails:
+        parsed_json = json.dumps(item, indent=4)
+        jsonCustomer = json.loads(parsed_json)
+
+        customerList.append([jsonCustomer["title"],jsonCustomer["firstName"],jsonCustomer["lastName"],jsonCustomer
+        ["emailAddress"]])
+
+    myfile = open('ls_emails.csv', 'wb')
+    wr = csv.writer(myfile, quoting=csv.QUOTE_ALL)
+    for i in customerList:
+        wr.writerow(i)
+
+    print(customerList)
+    return
+
+email_addresses()

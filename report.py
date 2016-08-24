@@ -42,7 +42,7 @@ def ls_summary():
 
 
 def sales_by_show():
-    mainList = monga.mongo_call("2016-08-15", "2016-08-21")
+    mainList = monga.mongo_call("2016-08-21", "2016-08-24")
     monga.create_docs(mainList[0], mainList[1], mainList[2], mainList[3], mainList[4], mainList[5], mainList[6],
                       mainList[7], mainList[8], mainList[9], mainList[10], mainList[11])
 
@@ -94,7 +94,7 @@ def show_of_the_month():
 
 
 def fringe():
-    mainList = monga.mongo_call("2016-08-15", "2016-08-31")
+    mainList = monga.mongo_call("2016-08-22", "2016-08-31")
     showG = mainList[9]
     comedyShow = "The Fringe Comedy Awards Show"
     g = showG[comedyShow]
@@ -178,7 +178,7 @@ def the_truth():
 
 
 def woman_in_black():
-    mainList = monga.mongo_call("2016-08-22", "2016-08-22")
+    mainList = monga.mongo_call("2016-01-22", "2016-01-22")
     showD = mainList[9]
     saleShow = "The Woman In Black"
     g = showD[saleShow]
