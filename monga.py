@@ -97,7 +97,8 @@ def mongo_call(startDate, endDate):
     mylist = [['ID', 'Date', 'Performance', 'Total Price', 'Booking Fee', 'Commission Amount', 'Margin %',
                'No of Tickets', 'Meal Deal', 'Restaurant Price PP', 'Discounts', 'Platform', 'Restoration Levy',
                'Venue', 'User Agent', 'Referrer', 'Supplier Key', 'ENTA Reference', 'Performance Date & Time',
-               'Supplier Group', 'Price Per Ticket', 'Restaurant Name', 'Show ID', 'Restaurant Supplier Code']]
+               'Supplier Group', 'Price Per Ticket', 'Restaurant Name', 'Show ID', 'Restaurant Supplier Code',
+               'Price Bands']]
     filename = 'sales_' + my_start_str[:10] + '_' + my_end_str[:10] + '.csv'
 
 
@@ -209,6 +210,10 @@ def mongo_call(startDate, endDate):
             perfId = j["performance"]["_id"]
         except:
             perfId = ""
+        try:
+            priceBd = j["tickets"]["priceBand"]["name"]
+        except:
+            priceBd = ""
 
         perfDateG = perfYear + "-" + perfMonth + "-" + perfDay + " " + perfHour + ":" + perfMin
 
@@ -243,7 +248,7 @@ def mongo_call(startDate, endDate):
                                                                                                     ["quantity"]), md,
                        restaurantPPP, promoMessage, j["financeData"]["productSourceSystem"], restorationLevy, supplier,
                        agent, referer, supplierKey, entaRef, perfDateG, officeCode, pricePerTkt, restaurantName,
-                       perfId, restSupCode])
+                       perfId, restSupCode, priceBd])
         # print j['displayPrices']
         # print float(j["displayPrices"]["grandTotal"])
         total_transactions += 1
@@ -351,4 +356,35 @@ def email_addresses():
     print(customerList)
     return
 
-# email_addresses()
+
+# def price_band():
+#     my_start_str = "2016-08-26T00:00:00Z"
+#     my_end_str = "2016-08-26T23:59:59Z"
+#
+#     x = read_mongo(my_start_str, my_end_str, 'lifestyle-checkout', 'basket', { "orderId" : 600460597 }, '10.10.20.153',
+#                    27017, 'reportsUser', 'ch*ckoUt20*6', True)
+#
+#     pBand = x.products.values
+#
+#     pBand = []
+#
+#     for item in pBand:
+#         parsed_json = json.dumps(item, indent=4)
+#         jsonPB = json.loads(parsed_json)
+#         pBand.append([jsonPB["tickets"]["priceBand"]["name"], jsonPB["performance"]["name"]])
+#
+#         try:
+#             pB = j["tickets"]["priceBand"]["name"]
+#         except:
+#             pB = ""
+#
+#     myfile = open('price_bands.csv', 'wb')
+#     wr = csv.writer(myfile, quoting=csv.QUOTE_ALL)
+#     for i in pBand:
+#         wr.writerow(i)
+#
+#     print(pBand)
+#     return
+#
+# price_band()
+
