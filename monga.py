@@ -97,7 +97,7 @@ def mongo_call(startDate, endDate):
     mylist = [['ID', 'Date', 'Performance', 'Total Price', 'Booking Fee', 'Commission Amount', 'Margin %',
                'No of Tickets', 'Meal Deal', 'Restaurant Price PP', 'Discounts', 'Platform', 'Restoration Levy',
                'Venue', 'User Agent', 'Referrer', 'Supplier Key', 'ENTA Reference', 'Performance Date & Time',
-               'Supplier Group', 'Price Per Ticket', 'Restaurant Name', 'Show ID', 'Restaurant Supplier Code', 'Email']]
+               'Supplier Group', 'Price Per Ticket', 'Restaurant Name', 'Show ID', 'Restaurant Supplier Code']]
     filename = 'sales_' + my_start_str[:10] + '_' + my_end_str[:10] + '.csv'
 
 
@@ -136,20 +136,6 @@ def mongo_call(startDate, endDate):
             restaurantName = j["restaurant"]["name"]
         except:
             restaurantName = ""
-
-        # for f in glob.glob("*.csv"):
-        #     print(f)
-        #     r = numpy.recfromcsv(f)
-        #     print(numpy.interp(restaurantName, r.SupplierC, r.RestaurantN))
-        #
-        f = open('restaurant supplier codes from ENTA.csv', 'rb')
-        csv_f = csv.reader(f)
-        for row in csv_f:
-            try:
-                row[0] == restaurantName
-                restSupCode = row[1]
-            except:
-                restSupCode = ""
         try:
             promoMessage = j["tickets"][0]["discounts"][0]
         except:
@@ -225,6 +211,15 @@ def mongo_call(startDate, endDate):
             perfId = ""
 
         perfDateG = perfYear + "-" + perfMonth + "-" + perfDay + " " + perfHour + ":" + perfMin
+
+        f = open('restaurant supplier codes from ENTA.csv', 'rb')
+        csv_f = csv.reader(f)
+        for row in csv_f:
+            try:
+                row[0] == restaurantName
+                restSupCode = row[1]
+            except:
+                restSupCode = ""
 
         times = (str(x.isoLastModifiedDateTime[total_transactions])).split(":")
         donetime = times[0] + ":" + times[1]
@@ -337,6 +332,8 @@ def email_addresses():
 
     customerDetails = x.customerDetails.values
 
+    custList = [['Title', 'First Name', 'Last Name', 'Email Address']]
+
     customerList = []
 
     for item in customerDetails:
@@ -354,4 +351,4 @@ def email_addresses():
     print(customerList)
     return
 
-email_addresses()
+# email_addresses()

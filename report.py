@@ -42,7 +42,7 @@ def ls_summary():
 
 
 def sales_by_show():
-    mainList = monga.mongo_call("2016-08-21", "2016-08-24")
+    mainList = monga.mongo_call("2016-08-15", "2016-08-26")
     monga.create_docs(mainList[0], mainList[1], mainList[2], mainList[3], mainList[4], mainList[5], mainList[6],
                       mainList[7], mainList[8], mainList[9], mainList[10], mainList[11])
 
@@ -62,7 +62,7 @@ def today_sales():
 
 
 def quick_sales():
-    mainList = monga.mongo_call("2016-08-15", "2016-08-21")
+    mainList = monga.mongo_call("2016-08-22", "2016-08-28")
     print("Total GTV: " + (str(mainList[2])))
     print("Total Bookings:" + (str(mainList[3])))
     print("Total Tickets:" + (str(mainList[4])))
@@ -103,6 +103,11 @@ def fringe():
     print("Show Update: " + str(comedyShow))
     print("Total GTV:" + str(sum(gtv)))
     print("Total Tickets:" + str(sum(tickets)))
+
+
+# def print_customer_list(custList):
+#     mainList = monga.email_addresses()
+#     custList = [['Title', 'First Name', 'Last Name', 'Email Address']]
 
 
 def sunny_afternoon():
@@ -225,15 +230,15 @@ def funny_girl():
     print("Total Tickets:" + str(sum(tickets)))
 
 
-def days_out():
-    mainList = monga.mongo_call("2016-08-17", "2016-08-17")
-    daysOutId = mainList[0]
-    daysOutShow = "630"
-    g = daysOutId[daysOutShow]
-    gtv = [item[0] for item in g]
-    tickets = [item[1] for item in g]
-    monga.create_docs(mainList[0], mainList[1], mainList[2], mainList[3], mainList[4], mainList[5], mainList[6],
-                      mainList[7], mainList[8], mainList[9], mainList[10], mainList[11])
+# def days_out():
+#     mainList = monga.mongo_call("2016-08-17", "2016-08-17")
+#     daysOutId = mainList[0]
+#     daysOutShow = "630"
+#     g = daysOutId[daysOutShow]
+#     gtv = [item[0] for item in g]
+#     tickets = [item[1] for item in g]
+#     monga.create_docs(mainList[0], mainList[1], mainList[2], mainList[3], mainList[4], mainList[5], mainList[6],
+#                       mainList[7], mainList[8], mainList[9], mainList[10], mainList[11])
 
 
 def mega_friday():
@@ -279,11 +284,23 @@ def mega_friday():
     g = showD[saleShowTen]
     gtv10 = [item[0] for item in g]
     tickets10 = [item[1] for item in g]
-    print("Mega Friday: GTV for all shows from the fortnight: £" + str(sum(gtv1+gtv2+gtv3+gtv4+gtv5+gtv6+gtv7+gtv8+gtv9+
+    print("MEGA FRIDAY: GTV for all shows from the fortnight: £" + str(sum(gtv1+gtv2+gtv3+gtv4+gtv5+gtv6+gtv7+gtv8+gtv9+
                                                                            gtv10)))
-    print("Mega Friday: Tickets for all shows from the fortnight: " + str(sum(tickets1+tickets2+tickets3+tickets4+
+    print("MEGA FRIDAY: Tickets for all shows from the fortnight: " + str(sum(tickets1+tickets2+tickets3+tickets4+
                                                                               tickets5+tickets6+tickets7+tickets8+
                                                                               tickets9+tickets10)))
+    print(saleShowOne + ": GTV= " + str(sum(gtv1)) + " Tickets= " + str(sum(tickets1)))
+    print(saleShowTwo + ": GTV= " + str(sum(gtv2)) + " Tickets= " + str(sum(tickets2)))
+    print(saleShowThree + ": GTV= " + str(sum(gtv3)) + " Tickets= " + str(sum(tickets3)))
+    print(saleShowFour + ": GTV= " + str(sum(gtv4)) + " Tickets= " + str(sum(tickets4)))
+    print(saleShowFive + ": GTV= " + str(sum(gtv5)) + " Tickets= " + str(sum(tickets5)))
+    print(saleShowSix + ": GTV= " + str(sum(gtv6)) + " Tickets= " + str(sum(tickets6)))
+    print(saleShowSeven + ": GTV= " + str(sum(gtv7)) + " Tickets= " + str(sum(tickets7)))
+    print(saleShowEight + ": GTV= " + str(sum(gtv8)) + " Tickets= " + str(sum(tickets8)))
+    print(saleShowNine + ": GTV= " + str(sum(gtv9)) + " Tickets= " + str(sum(tickets9)))
+    print(saleShowTen + ": GTV= " + str(sum(gtv10)) + " Tickets= " + str(sum(tickets10)))
+
+
 
 
 def bi_monthly_finance():
@@ -298,7 +315,7 @@ def choose_report():
                            '(6) show spot (7) SOTM (8) Bi-Monthly Finance (9) Fringe (10) Sunny Afternoon (11) 1984 '
                            '(12) Hobsons Choice (13) American Idiot (14) Go-Between (15) The Truth '
                            '(16) Woman in Black (17) Jersey Boys (18) Other Half Loves (19) Funny Girl '
-                           '(20) Mega Friday (21) Days Out '))
+                           '(20) Mega Friday  '))
     if userChoice == 1:
         ls_summary()
     if userChoice == 2:
@@ -339,8 +356,6 @@ def choose_report():
         funny_girl()
     if userChoice == 20:
         mega_friday()
-    if userChoice == 21:
-        days_out()
 
 
 choose_report()
