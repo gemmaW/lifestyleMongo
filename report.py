@@ -105,11 +105,6 @@ def fringe():
     print("Total Tickets:" + str(sum(tickets)))
 
 
-# def print_customer_list(custList):
-#     mainList = monga.email_addresses()
-#     custList = [['Title', 'First Name', 'Last Name', 'Email Address']]
-
-
 def sunny_afternoon():
     mainList = monga.mongo_call("2016-08-17", "2016-08-19")
     showD = mainList[9]
