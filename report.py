@@ -17,8 +17,8 @@ def daterange(start_date, end_date):
 
 
 def ls_summary():
-    startDate = datetime.datetime.strptime("2016,08,15", "%Y,%m,%d")
-    endDate = datetime.datetime.strptime("2016,08,22", "%Y,%m,%d")
+    startDate = datetime.datetime.strptime("2016,08,22", "%Y,%m,%d")
+    endDate = datetime.datetime.strptime("2016,08,29", "%Y,%m,%d")
 
     # start_date = date(2016, 7, 16)
     # end_date = date(2016, 7, 18)
@@ -29,7 +29,7 @@ def ls_summary():
     # print(budget)
     budgetPlot = {}
     for single_date in daterange(startDate, endDate):
-        lyDate = (single_date - timedelta(days=365))
+        lyDate = (single_date - timedelta(days=364))
         mainList = monga.mongo_call(single_date.strftime("%Y-%m-%d"), single_date.strftime("%Y-%m-%d"))
         budget[single_date.strftime("%d/%m/%Y")].append(str(mainList[2]))
         budget[single_date.strftime("%d/%m/%Y")].append(str(lastYear[lyDate.strftime("%d/%m/%Y")][1]))
@@ -48,7 +48,7 @@ def sales_by_show():
 
 
 def hourly_heatmap():
-    mainList = monga.mongo_call("2016-08-15", "2016-08-21")
+    mainList = monga.mongo_call("2016-08-22", "2016-08-28")
     plotGraph.hourly_heat(mainList[0][1:])
 
 
@@ -62,7 +62,7 @@ def today_sales():
 
 
 def quick_sales():
-    mainList = monga.mongo_call("2016-08-19", "2016-08-19")
+    mainList = monga.mongo_call("2016-07-01", "2016-07-31")
     print("Total GTV: " + (str(mainList[2])))
     print("Total Bookings:" + (str(mainList[3])))
     print("Total Tickets:" + (str(mainList[4])))
@@ -94,7 +94,7 @@ def show_of_the_month():
 
 
 def fringe():
-    mainList = monga.mongo_call("2016-05-01", "2016-08-31")
+    mainList = monga.mongo_call("2016-08-22", "2016-08-28")
     showG = mainList[9]
     comedyShow = "The Fringe Comedy Awards Show"
     g = showG[comedyShow]
@@ -109,114 +109,6 @@ def sunny_afternoon():
     mainList = monga.mongo_call("2016-08-17", "2016-08-19")
     showD = mainList[9]
     saleShow = "Sunny Afternoon"
-    g = showD[saleShow]
-    gtv = [item[0] for item in g]
-    tickets = [item[1] for item in g]
-    print("Show Update: " + str(saleShow))
-    print("Total GTV:" + str(sum(gtv)))
-    print("Total Tickets:" + str(sum(tickets)))
-
-
-def nineteen84_the_play():
-    mainList = monga.mongo_call("2016-08-17", "2016-08-17")
-    showD = mainList[9]
-    saleShow = "1984 The Play"
-    g = showD[saleShow]
-    gtv = [item[0] for item in g]
-    tickets = [item[1] for item in g]
-    print("Show Update: " + str(saleShow))
-    print("Total GTV:" + str(sum(gtv)))
-    print("Total Tickets:" + str(sum(tickets)))
-
-
-def hobsons_choice():
-    mainList = monga.mongo_call("2016-08-17", "2016-08-18")
-    showD = mainList[9]
-    saleShow = "Hobson's Choice"
-    g = showD[saleShow]
-    gtv = [item[0] for item in g]
-    tickets = [item[1] for item in g]
-    print("Show Update: " + str(saleShow))
-    print("Total GTV:" + str(sum(gtv)))
-    print("Total Tickets:" + str(sum(tickets)))
-
-
-def american_idiot():
-    mainList = monga.mongo_call("2016-08-19", "2016-08-19")
-    showD = mainList[9]
-    saleShow = "American Idiot"
-    g = showD[saleShow]
-    gtv = [item[0] for item in g]
-    tickets = [item[1] for item in g]
-    print("Show Update: " + str(saleShow))
-    print("Total GTV:" + str(sum(gtv)))
-    print("Total Tickets:" + str(sum(tickets)))
-
-
-def go_between():
-    mainList = monga.mongo_call("2016-08-20", "2016-08-20")
-    showD = mainList[9]
-    saleShow = "The Go-Between"
-    g = showD[saleShow]
-    gtv = [item[0] for item in g]
-    tickets = [item[1] for item in g]
-    print("Show Update: " + str(saleShow))
-    print("Total GTV:" + str(sum(gtv)))
-    print("Total Tickets:" + str(sum(tickets)))
-
-
-def the_truth():
-    mainList = monga.mongo_call("2016-08-21", "2016-08-21")
-    showD = mainList[9]
-    saleShow = "The Truth"
-    g = showD[saleShow]
-    gtv = [item[0] for item in g]
-    tickets = [item[1] for item in g]
-    print("Show Update: " + str(saleShow))
-    print("Total GTV:" + str(sum(gtv)))
-    print("Total Tickets:" + str(sum(tickets)))
-
-
-def woman_in_black():
-    mainList = monga.mongo_call("2016-01-22", "2016-01-22")
-    showD = mainList[9]
-    saleShow = "The Woman In Black"
-    g = showD[saleShow]
-    gtv = [item[0] for item in g]
-    tickets = [item[1] for item in g]
-    print("Show Update: " + str(saleShow))
-    print("Total GTV:" + str(sum(gtv)))
-    print("Total Tickets:" + str(sum(tickets)))
-
-
-def jersey_boys():
-    mainList = monga.mongo_call("2016-08-23", "2016-08-23")
-    showD = mainList[9]
-    saleShow = "Jersey Boys"
-    g = showD[saleShow]
-    gtv = [item[0] for item in g]
-    tickets = [item[1] for item in g]
-    print("Show Update: " + str(saleShow))
-    print("Total GTV:" + str(sum(gtv)))
-    print("Total Tickets:" + str(sum(tickets)))
-
-
-def other_half():
-    mainList = monga.mongo_call("2016-08-24", "2016-08-24")
-    showD = mainList[9]
-    saleShow = "How the Other Half Loves"
-    g = showD[saleShow]
-    gtv = [item[0] for item in g]
-    tickets = [item[1] for item in g]
-    print("Show Update: " + str(saleShow))
-    print("Total GTV:" + str(sum(gtv)))
-    print("Total Tickets:" + str(sum(tickets)))
-
-
-def funny_girl():
-    mainList = monga.mongo_call("2016-08-25", "2016-08-25")
-    showD = mainList[9]
-    saleShow = "Funny Girl"
     g = showD[saleShow]
     gtv = [item[0] for item in g]
     tickets = [item[1] for item in g]
