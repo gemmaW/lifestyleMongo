@@ -6,7 +6,7 @@ import unicodecsv as csv
 from operator import itemgetter
 import sheets
 import newSheets
-from datetime import datetime, timedelta, date
+from datetime import datetime, timedelta
 import plotGraph
 import datetime
 import time
@@ -17,8 +17,8 @@ def daterange(start_date, end_date):
 
 
 def ls_summary():
-    startDate = datetime.datetime.strptime("2016,08,22", "%Y,%m,%d")
-    endDate = datetime.datetime.strptime("2016,08,29", "%Y,%m,%d")
+    startDate = datetime.datetime.strptime("2016,08,01", "%Y,%m,%d")
+    endDate = datetime.datetime.strptime("2016,09,01", "%Y,%m,%d")
 
     # start_date = date(2016, 7, 16)
     # end_date = date(2016, 7, 18)
@@ -42,27 +42,39 @@ def ls_summary():
 
 
 def sales_by_show():
-    mainList = monga.mongo_call("2016-08-26", "2016-08-26")
+    mainList = monga.mongo_call("2016-09-06", "2016-09-06")
     monga.create_docs(mainList[0], mainList[1], mainList[2], mainList[3], mainList[4], mainList[5], mainList[6],
                       mainList[7], mainList[8], mainList[9], mainList[10], mainList[11])
 
 
 def hourly_heatmap():
-    mainList = monga.mongo_call("2016-08-22", "2016-08-28")
+    mainList = monga.mongo_call("2016-08-22", "2016-09-28")
     plotGraph.hourly_heat(mainList[0][1:])
+
+
+def spa_heatmap():
+    plotGraph.hourly_spa_heat()
 
 
 def today_sales():
     to_day = (time.strftime("%Y-%m-%d"))
+    print(to_day)
+    # wow_to_day = (datetime.date.today()-datetime.timedelta(days=7))
+    # print(wow_to_day)
     mainList = monga.mongo_call(to_day, to_day)
+    # mainList2 = monga.mongo_call(wow_to_day, wow_to_day)
     print("Total GTV: " + (str(mainList[2])))
     print("Total Bookings:" + (str(mainList[3])))
     print("Total Tickets:" + (str(mainList[4])))
     print("Total Commission: " + (str(mainList[6])))
+    # print("Total WoW GTV: " + (str(mainList2[2])))
+    # print("Total WoW Bookings:" + (str(mainList2[3])))
+    # print("Total WoW Tickets:" + (str(mainList2[4])))
+    # print("Total WoW Commission: " + (str(mainList2[6])))
 
 
 def quick_sales():
-    mainList = monga.mongo_call("2016-07-01", "2016-07-31")
+    mainList = monga.mongo_call("2016-09-05", "2016-09-05")
     print("Total GTV: " + (str(mainList[2])))
     print("Total Bookings:" + (str(mainList[3])))
     print("Total Tickets:" + (str(mainList[4])))
@@ -82,9 +94,9 @@ def show_sales():
 
 
 def show_of_the_month():
-    mainList = monga.mongo_call("2016-08-01", "2016-08-31")
+    mainList = monga.mongo_call("2016-08-31", "2016-09-30")
     showD = mainList[9]
-    sotmShow = "In the Heights"
+    sotmShow = "Wicked"
     v = showD[sotmShow]
     gtv = [item[0] for item in v]
     tickets = [item[1] for item in v]
@@ -94,7 +106,7 @@ def show_of_the_month():
 
 
 def fringe():
-    mainList = monga.mongo_call("2016-08-22", "2016-08-28")
+    mainList = monga.mongo_call("2016-08-05", "2016-09-11")
     showG = mainList[9]
     comedyShow = "The Fringe Comedy Awards Show"
     g = showG[comedyShow]
@@ -105,16 +117,28 @@ def fringe():
     print("Total Tickets:" + str(sum(tickets)))
 
 
-def sunny_afternoon():
-    mainList = monga.mongo_call("2016-08-17", "2016-08-19")
+def railway_children():
+    mainList = monga.mongo_call("2016-09-06", "2016-09-06")
     showD = mainList[9]
-    saleShow = "Sunny Afternoon"
+    saleShow = "The Railway Children"
     g = showD[saleShow]
     gtv = [item[0] for item in g]
     tickets = [item[1] for item in g]
     print("Show Update: " + str(saleShow))
     print("Total GTV:" + str(sum(gtv)))
     print("Total Tickets:" + str(sum(tickets)))
+
+
+# def specific_show_sales():
+#     mainList = monga.mongo_call("2016-08-31", "2016-09-01")
+#     showD = mainList[9]
+#     saleShow = "Wicked"
+#     g = showD[saleShow]
+#     gtv = [item[0] for item in g]
+#     tickets = [item[1] for item in g]
+#     monga.create_docs(mainList[0], mainList[1], mainList[2], mainList[3], mainList[4], mainList[5], mainList[6],
+#                       mainList[7], mainList[8], showD, mainList[10], mainList[11])
+
 
 
 # def days_out():
@@ -199,10 +223,9 @@ def bi_monthly_finance():
 def choose_report():
     # input = raw_input
     userChoice = int(input('Choose a report: /n (1) summary (2) sales by show (3) hourly (4) today (5) quick check '
-                           '(6) show spot (7) SOTM (8) Bi-Monthly Finance (9) Fringe (10) Sunny Afternoon (11) 1984 '
-                           '(12) Hobsons Choice (13) American Idiot (14) Go-Between (15) The Truth '
-                           '(16) Woman in Black (17) Jersey Boys (18) Other Half Loves (19) Funny Girl '
-                           '(20) Mega Friday  '))
+                           '(6) show spot (7) SOTM (8) Bi-Monthly Finance (9) Fringe (10) Sunny Afternoon (11) '
+                           'Mega Friday  (12) Specific Show Detail (13) spa heat'))
+
     if userChoice == 1:
         ls_summary()
     if userChoice == 2:
@@ -224,25 +247,11 @@ def choose_report():
     if userChoice == 10:
         sunny_afternoon()
     if userChoice == 11:
-        nineteen84_the_play()
-    if userChoice == 12:
-        hobsons_choice()
-    if userChoice == 13:
-        american_idiot()
-    if userChoice == 14:
-        go_between()
-    if userChoice == 15:
-        the_truth()
-    if userChoice == 16:
-        woman_in_black()
-    if userChoice == 17:
-        jersey_boys()
-    if userChoice == 18:
-        other_half()
-    if userChoice == 19:
-        funny_girl()
-    if userChoice == 20:
         mega_friday()
+    # if userChoice == 12:
+    #     specific_show_sales()
+    if userChoice == 13:
+        spa_heatmap()
 
 
 choose_report()
