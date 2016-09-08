@@ -43,9 +43,9 @@ def read_mongo(my_start_str, my_end_str, db, collection, query, host, port, user
     # Expand the cursor and construct the DataFrame
     df = pd.DataFrame(list(cursor))
 
-    # Delete the _id
-    if no_id:
-        del df['_id']
+    # # Delete the _id
+    # if no_id:
+    #     del df['_id']
 
     return df
 
@@ -329,8 +329,8 @@ def create_finance(mylist, filename, total_gtv, total_transactions, total_ticket
 
 
 def email_addresses():
-    my_start_str = "2016-07-12T00:00:00Z"
-    my_end_str = "2016-07-12T23:59:59Z"
+    my_start_str = "2016-01-01T00:00:00Z"
+    my_end_str = "2016-09-07T23:59:59Z"
 
     x = read_mongo(my_start_str, my_end_str, 'lifestyle-checkout', 'basket', { "orderId" : 600460597 }, '10.10.20.153',
                    27017, 'reportsUser', 'ch*ckoUt20*6', True)
@@ -357,44 +357,5 @@ def email_addresses():
     return
 
 
-# def create_Show_docs(mylist, filename, total_gtv, total_transactions, total_tickets, meal_deals, total_commission,
-#                     total_bookingFee, vat, showsDict, startDate, endDate):
-#
-#
-#     myfile = open(filename, 'wb')
-#     wr = csv.writer(myfile, quoting=csv.QUOTE_ALL)
-#     print(mylist)
-#     mylist.insert(0, [''])
-#     mylist.insert(0, ['# ----------------------------------------'])
-#     mylist.insert(0, ['# No. of Meal Deals: ' + str(meal_deals)])
-#     mylist.insert(0, ['# Total Tickets: ' + str(total_tickets)])
-#     mylist.insert(0, ['# Total Transactions: ' + str(total_transactions)])
-#     mylist.insert(0, ['# Margin %: ' + str((1 - (total_gtv / vat - (total_commission + total_bookingFee)) / (total_gtv / vat)) * 100)])
-#     mylist.insert(0, ['# Total Margin: ' + str(total_commission + total_bookingFee)])
-#     mylist.insert(0, ['# Total GTV: ' + str(total_gtv)])
-#     mylist.insert(0, ['# End Date: ' + endDate])
-#     mylist.insert(0, ['# Start Date: ' + startDate])
-#     mylist.insert(0, ['# 01_Sales Overview'])
-#     mylist.insert(0, ['# ----------------------------------------'])
-#
-#     mylist.append([''])
-#     mylist.append([''])
-#     mylist.append(['Name', 'TTV', 'Tickets'])
-#
-#     showsList = []
-#     for k, v in showsDict.items():
-#         ttv = [item[0] for item in v]
-#         tickets = [item[1] for item in v]
-#         # print k,ttv
-#     showsList.append([k, "%.2f" % round(sum(ttv), 2), sum(tickets)])
-#     # wr.writerow((k,("%.2f" % round(sum(ttv),2)),sum(tickets)))
-#
-# sortedList = sorted(showsList, key=itemgetter(2), reverse=True)
-# for i in sortedList:
-#     mylist.append(i)
-#
-# for i in mylist:
-#     wr.writerow(i)
-#
-# sheets.main(mylist)
+
 
