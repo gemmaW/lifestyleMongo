@@ -344,9 +344,9 @@ def trace_graph_spa(value):
         # print(str(k))
         s = datetime.strptime(str(k), "%d/%m/%Y")
         xValues.append(s.strftime("%Y-%m-%d"))
-        trace1Values.append(value[k][3])
+        trace1Values.append(value[k][2])
         trace2Values.append(value[k][1])
-        trace3Values.append(value[k][2])
+        trace3Values.append(value[k][0])
 
 
     trace1 = go.Bar(

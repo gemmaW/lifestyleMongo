@@ -1,10 +1,11 @@
 import monga
 import newSheets
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, time
 import plotGraph
 import datetime
 import time
-
+import csv
+import pandas as pd
 
 def daterange(start_date, end_date):
     for n in range(int((end_date - start_date).days)):
@@ -27,15 +28,26 @@ def ticketing_summary():
 
 
 def spa_summary():
-    startDate = datetime.datetime.strptime("2016,09,05", "%Y,%m,%d")
-    endDate = datetime.datetime.strptime("2016,09,06", "%Y,%m,%d")
+    # with open('spa.csv', 'r') as spa_f:
+    #     reader = csv.reader(spa_f)
+    #     included_cols = [10]
+    #     for row in reader:
+    #         spa_tov = list(row[i] for i in included_cols)
+    #         print(spa_tov)
+
+    df = pd.read_csv('spa.csv')
+    spa_tov = df['TOV']
+
+
+    startDate = datetime.datetime.strptime("2016,08,29", "%Y,%m,%d")
+    endDate = datetime.datetime.strptime("2016,09,04", "%Y,%m,%d")
 
     budget, lastYear = newSheets.spa_main()
     budgetPlot = {}
     for single_date in daterange(startDate, endDate):
         lyDate = (single_date - timedelta(days=364))
-        mainList = monga.mongo_call(single_date.strftime("%Y-%m-%d"), single_date.strftime("%Y-%m-%d"))
-        budget[single_date.strftime("%d/%m/%Y")].append(str(mainList[2]))
+        mainList = sum(spa_tov)
+        # budget[single_date.strftime("%d/%m/%Y")].append(str(mainList[0]))
         budget[single_date.strftime("%d/%m/%Y")].append(str(lastYear[lyDate.strftime("%d/%m/%Y")][1]))
         budgetPlot[single_date.strftime("%d/%m/%Y")] = budget[single_date.strftime("%d/%m/%Y")]
     plotGraph.trace_graph_spa(budgetPlot)
@@ -196,10 +208,10 @@ def bi_monthly_finance():
 
 def choose_report():
     # input = raw_input
-    userChoice = int(input('Choose a report: /n (1) summary (2) sales by show (3) hourly (4) today (5) quick check '
-                           '(6) show spot (7) SOTM (8) Bi-Monthly Finance (9) Fringe (10) The Railway Children (11) '
-                           'Mega Friday  (12) Spa hourly (13) Experiences hourly (14) Get Emails (15) spa summary (16) '
-                           'experiences summary'))
+    userChoice = int(input('Choose a report: /n (1) Ticketing Summary (2) Sales by Show (3) Ticketing Hourly (4) Today '
+                           '(5) Quick Check (6) Show Spot (7) SOTM (8) Bi-Monthly Finance (9) Fringe (10) The Railway '
+                           'Children (11) Meal Deal Sale (12) Spa Hourly (13) Experiences Hourly (14) Get Emails (15) '
+                           'Spa Summary (16) Experiences Summary '))
 
     if userChoice == 1:
         ticketing_summary()
