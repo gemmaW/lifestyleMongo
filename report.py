@@ -11,9 +11,9 @@ def daterange(start_date, end_date):
         yield start_date + timedelta(n)
 
 
-def ls_summary():
-    startDate = datetime.datetime.strptime("2016,08,01", "%Y,%m,%d")
-    endDate = datetime.datetime.strptime("2016,09,01", "%Y,%m,%d")
+def ticketing_summary():
+    startDate = datetime.datetime.strptime("2016,09,05", "%Y,%m,%d")
+    endDate = datetime.datetime.strptime("2016,09,06", "%Y,%m,%d")
 
     budget, lastYear = newSheets.main()
     budgetPlot = {}
@@ -24,6 +24,36 @@ def ls_summary():
         budget[single_date.strftime("%d/%m/%Y")].append(str(lastYear[lyDate.strftime("%d/%m/%Y")][1]))
         budgetPlot[single_date.strftime("%d/%m/%Y")] = budget[single_date.strftime("%d/%m/%Y")]
     plotGraph.trace_graph(budgetPlot)
+
+
+def spa_summary():
+    startDate = datetime.datetime.strptime("2016,09,05", "%Y,%m,%d")
+    endDate = datetime.datetime.strptime("2016,09,06", "%Y,%m,%d")
+
+    budget, lastYear = newSheets.spa_main()
+    budgetPlot = {}
+    for single_date in daterange(startDate, endDate):
+        lyDate = (single_date - timedelta(days=364))
+        mainList = monga.mongo_call(single_date.strftime("%Y-%m-%d"), single_date.strftime("%Y-%m-%d"))
+        budget[single_date.strftime("%d/%m/%Y")].append(str(mainList[2]))
+        budget[single_date.strftime("%d/%m/%Y")].append(str(lastYear[lyDate.strftime("%d/%m/%Y")][1]))
+        budgetPlot[single_date.strftime("%d/%m/%Y")] = budget[single_date.strftime("%d/%m/%Y")]
+    plotGraph.trace_graph_spa(budgetPlot)
+
+
+def exp_summary():
+    startDate = datetime.datetime.strptime("2016,09,05", "%Y,%m,%d")
+    endDate = datetime.datetime.strptime("2016,09,06", "%Y,%m,%d")
+
+    budget, lastYear = newSheets.exp_main()
+    budgetPlot = {}
+    for single_date in daterange(startDate, endDate):
+        lyDate = (single_date - timedelta(days=364))
+        mainList = monga.mongo_call(single_date.strftime("%Y-%m-%d"), single_date.strftime("%Y-%m-%d"))
+        budget[single_date.strftime("%d/%m/%Y")].append(str(mainList[2]))
+        budget[single_date.strftime("%d/%m/%Y")].append(str(lastYear[lyDate.strftime("%d/%m/%Y")][1]))
+        budgetPlot[single_date.strftime("%d/%m/%Y")] = budget[single_date.strftime("%d/%m/%Y")]
+    plotGraph.trace_graph_exp(budgetPlot)
 
 
 def sales_by_show():
@@ -168,10 +198,11 @@ def choose_report():
     # input = raw_input
     userChoice = int(input('Choose a report: /n (1) summary (2) sales by show (3) hourly (4) today (5) quick check '
                            '(6) show spot (7) SOTM (8) Bi-Monthly Finance (9) Fringe (10) The Railway Children (11) '
-                           'Mega Friday  (12) Spa hourly (13) Experiences hourly (14) Get Emails '))
+                           'Mega Friday  (12) Spa hourly (13) Experiences hourly (14) Get Emails (15) spa summary (16) '
+                           'experiences summary'))
 
     if userChoice == 1:
-        ls_summary()
+        ticketing_summary()
     if userChoice == 2:
         sales_by_show()
     if userChoice == 3:
@@ -198,6 +229,10 @@ def choose_report():
         exp_heatmap()
     if userChoice == 14:
         get_emails()
+    if userChoice == 15:
+        spa_summary()
+    if userChoice == 16:
+        exp_summary()
 
 
 choose_report()
