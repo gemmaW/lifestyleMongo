@@ -80,7 +80,7 @@ def main():
         for row in values:
             # Print columns A and E, which correspond to indices 0 and 4.
             #print('%s, %s, %s' % (row[2], str(float(row[18][1:].replace(',', ''))+float(row[19][1:].replace(',', ''))+float(row[20][1:].replace(',', ''))+float(row[21][1:].replace(',', ''))+float(row[22][1:].replace(',', ''))), str(float(row[18][1:].replace(',', '')))))
-            budget[row[2]] = [str(float(row[18][1:].replace(',', ''))+float(row[19][1:].replace(',', ''))+float(row[20][1:].replace(',', ''))+float(row[21][1:].replace(',', ''))+float(row[22][1:].replace(',', ''))), str(float(row[18][1:].replace(',', '')))]
+            budget[row[2]] = [str(float(row[13][1:].replace(',', ''))+float(row[14][1:].replace(',', ''))+float(row[15][1:].replace(',', ''))+float(row[16][1:].replace(',', ''))+float(row[17][1:].replace(',', ''))), str(float(row[13][1:].replace(',', '')))]
 
 
     # do the same for last year figures from same google sheets (sheet2)
@@ -99,7 +99,7 @@ def main():
         for row in values:
             # Print columns A and E, which correspond to indices 0 and 4.
             #print('%s, %s, %s' % (row[2], str(float(row[18][1:].replace(',', ''))+float(row[19][1:].replace(',', ''))+float(row[20][1:].replace(',', ''))+float(row[21][1:].replace(',', ''))+float(row[22][1:].replace(',', ''))), str(float(row[18][1:].replace(',', '')))))
-            lastYear[row[2]] = [str(float(row[18][1:].replace(',', ''))+float(row[19][1:].replace(',', ''))+float(row[20][1:].replace(',', ''))+float(row[21][1:].replace(',', ''))+float(row[22][1:].replace(',', ''))), str(float(row[13][1:].replace(',', '')))]
+            lastYear[row[2]] = [str(float(row[18][1:].replace(',', ''))+float(row[19][1:].replace(',', ''))+float(row[20][1:].replace(',', ''))+float(row[21][1:].replace(',', ''))+float(row[22][1:].replace(',', ''))), str(float(row[18][1:].replace(',', '')))]
 
 
     #print(budget)
