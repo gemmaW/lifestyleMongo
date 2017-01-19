@@ -3,7 +3,6 @@ import httplib2
 import os
 import time
 from plotGraph import trace_graph
-
 from apiclient import discovery
 import oauth2client
 from oauth2client import client
